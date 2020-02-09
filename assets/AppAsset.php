@@ -23,7 +23,7 @@ class AppAsset extends AssetBundle
     public $js = [
 	    'js/loader.js',
 		'https://code.jquery.com/ui/1.12.1/jquery-ui.js', //autocomplete JS
-		//'js/dropAdvertise_zzz.js', //drop hosting ads
+		'js/dropAdvertise_zzz.js', //drop hosting ads
 		
     ];
 	

@@ -13,7 +13,7 @@ $this->title = 'Створити нову накладну';
 $this->params['breadcrumbs'][] = ['label' => 'Invoice Load Ins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="invoice-load-in-create">
+<div id="all" class="invoice-load-in-create animate-bottom">
 
     <h1><?= Html::encode($this->title) ?>
 	<i class="fa fa-folder-open-o" style="font-size:34px"></i></h1>

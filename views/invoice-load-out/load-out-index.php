@@ -11,7 +11,7 @@ use app\models\Balance;
 $this->title = 'Замовити вiдвантаження';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-about">
+<div id="all" class="site-about animate-bottom">
     <h1><?= Html::encode($this->title) ?></h1>
 	
 	

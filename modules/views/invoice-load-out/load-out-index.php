@@ -14,7 +14,7 @@ AdminLoadOutAsset::register($this);
 $this->title = 'Запити на відвантаження';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-about">
+<div id="all" class="site-about animate-bottom">
     <h1><?= Html::encode($this->title) ?></h1>
 	
    <!------ FLASH Message if OK ----->

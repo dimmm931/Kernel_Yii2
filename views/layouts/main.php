@@ -47,7 +47,7 @@ AppAsset::register($this);
             //['label' => 'Contact', 'url' => ['/site/contact']],
 			['label' => 'Мій кабінет', 'url' => ['/personal-account/index'] ,'visible' => (!Yii::$app->user->isGuest)],
 			['label' => 'Реєстрація', 'url' => ['/site/signup'] ,'visible' => (Yii::$app->user->isGuest)],
-			['label' => 'AdminPanel (delete)', 'url' => ['/admin/default/index'], 'visible' => (!Yii::$app->user->isGuest)],
+			['label' => 'AdminPanel', 'url' => ['/admin/default/index'], 'visible' => (!Yii::$app->user->isGuest)],
 			['label' => 'Вiдвантажити', 'url' => ['/invoice-load-out/load-out'], 'visible' => (!Yii::$app->user->isGuest)],
 			['label' => 'Переоформити', 'url' => ['/transfer-rights/transfer-right'], 'visible' => (!Yii::$app->user->isGuest)],
 			['label' => 'Повiдомлення', 'url' => ['/messages/show-messages'], 'visible' => (!Yii::$app->user->isGuest)], 
