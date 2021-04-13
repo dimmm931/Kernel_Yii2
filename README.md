@@ -27,45 +27,45 @@
 
 ### Weight validation based on user's balance.
 
-![Screenshot](web/images/Screenshots/5.png
+![Screenshot](web/images/Screenshots/5.png)
 
 ### Transfer rights to other user. Users input autocomplete.
 
-![Screenshot](web/images/Screenshots/7.png
+![Screenshot](web/images/Screenshots/7.png)
 
 ### User's message box.
 
-![Screenshot](web/images/Screenshots/8.png
+![Screenshot](web/images/Screenshots/8.png)
 
-![Screenshot](web/images/Screenshots/9.png
+![Screenshot](web/images/Screenshots/9.png)
 
 ### User's history section.
 
-![Screenshot](web/images/Screenshots/10.png
+![Screenshot](web/images/Screenshots/10.png)
 
 ### Admin panel main page. Protected by RBAC.
 
-![Screenshot](web/images/Screenshots/11.png
+![Screenshot](web/images/Screenshots/11.png)
 
 ### Admin panel, section with users's request for registration confirmation.
 
-![Screenshot](web/images/Screenshots/12.png
+![Screenshot](web/images/Screenshots/12.png)
 
 ### Admin panel, section with users's request for product's load out.
 
-![Screenshot](web/images/Screenshots/13.png
+![Screenshot](web/images/Screenshots/13.png)
 
-![Screenshot](web/images/Screenshots/14.png
+![Screenshot](web/images/Screenshots/14.png)
 
 ### Admin panel, section "View all users".
 
-![Screenshot](web/images/Screenshots/15.png
+![Screenshot](web/images/Screenshots/15.png)
 
-![Screenshot](web/images/Screenshots/16.png
+![Screenshot](web/images/Screenshots/16.png)
 
 ### Admin panel, create a new invoice.
 
-![Screenshot](web/images/Screenshots/17.png
+![Screenshot](web/images/Screenshots/17.png)
 
 ### Gif video.
 
