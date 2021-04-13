@@ -49,6 +49,7 @@ class InvoiceLoadOut extends \yii\db\ActiveRecord
             [['confirmed_by_admin', 'completed', 'invoice_unique_id'], 'string'],
 			['invoice_unique_id', 'unique', 'targetClass' => '\app\modules\models\InvoiceLoadOut', 'message' => 'This Invoice ID has already been taken.'],
 			['product_wieght','validateWeight'], //my validation function validateWeight
+			['product_wieght', 'compare', 'compareValue' => 1, 'operator' => '>='],
         ];
     }
 

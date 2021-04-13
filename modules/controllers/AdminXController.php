@@ -28,10 +28,10 @@ class AdminXController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['admin-panel'],
+                'only' => ['admin-panel'], //'admin-panel'
                 'rules' => [
                     [
-                        'actions' => ['admin-panel'],
+                        'actions' => ['admin-panel'], //'admin-panel'
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -69,6 +69,12 @@ class AdminXController extends Controller
      * any action in this controller is available with users with adminX RBAC
      */
 	public function beforeAction($action){
+		
+		if (Yii::$app->user->isGuest) {
+           //return $this->redirect(['/site/login']);
+		   throw new \yii\web\NotFoundHttpException("Please log-in first.");
+        }
+		
 	    if(!Yii::$app->user->can('adminX')){
 		    throw new \yii\web\NotFoundHttpException("You have no admin rights.");
 	    }

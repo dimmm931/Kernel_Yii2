@@ -47,7 +47,7 @@ AdminOnlyMainModuleAsset::register($this);
 			['label' => 'Кабінет користувача', 'url' => ['/personal-account/index']],
 			//['label' => 'Sign up', 'url' => ['/site/signup'] ,'visible' => (Yii::$app->user->isGuest)],
 			['label' => 'AdminPanel', 'url' => ['/admin/default/index'] ],
-			['label' => 'Запити на реєстрацію', 'url' => ['/admin/admin-x/users-registration-requests']],
+			['label' => 'Реєстрація', 'url' => ['/admin/admin-x/users-registration-requests']],
 			['label' => 'Запит на вiдвантаження', 'url' => ['/admin/invoice-load-out/index'] ],  
 			['label' => 'Нова накладна', 'url' => ['/admin/invoice-load-in/create'] ], 
 			['label' => 'Всі користувачі', 'url' => ['/admin/view-all-users/index'] ],

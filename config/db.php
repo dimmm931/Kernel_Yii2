@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=kernel_casers_db',
+    'dsn' => 'mysql:host=localhost;dbname=kernel',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

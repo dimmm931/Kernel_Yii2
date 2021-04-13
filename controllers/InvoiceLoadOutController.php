@@ -10,7 +10,6 @@ use yii\filters\VerbFilter;
 use app\modules\models\InvoiceLoadOut;
 use app\models\Balance;
 
-
 class InvoiceLoadOutController extends Controller
 {
     /**
@@ -56,7 +55,7 @@ class InvoiceLoadOutController extends Controller
     }
 
     /**
-     * Displays Load out request form
+     * Displays load-out request form
      *
      * @return string
      */
@@ -72,12 +71,9 @@ class InvoiceLoadOutController extends Controller
 		$products = Balance::find()->where(['balance_user_id' => Yii::$app->user->identity->id])-> all();
 		$b = new Balance();
 		
-		
-		
 	    if ($model->load(Yii::$app->request->post())) {
 			if ( $model->save()){
 			    /*$res = $model->checkBalance();
-			
 			    if($res){
 			    //adds and updates with new weigth		
 			     $model->balanceAdd($res);
@@ -85,11 +81,8 @@ class InvoiceLoadOutController extends Controller
 			      //saves new row with product and weigth	
 			      $model->addNewProduct();
 		       }
-			
 		       $model->sendMessage(); //notify the user
 			   */
-			
-               //return $this->redirect(['view', 'id' => $model->id]);
 			
 			    $model->deductProduct();
 			    $model->sendMessage();
@@ -97,13 +90,9 @@ class InvoiceLoadOutController extends Controller
 			    Yii::$app->getSession()->setFlash('statusOK', "Ваш запит на вiдвантаження вiдправлено адмiстратору. Очiкуйте на пiдтвердження у повiдомленнях"); 
 			    return $this->refresh();
            } else {
-			    //var_dump($model->getErrors());
 			    Yii::$app->getSession()->setFlash('statusOK', "Error"); 
 		   }
 		}
-		
-		
-		
 		
         return $this->render('load-out-index', [
 		      'model' => $model, 
@@ -111,7 +100,5 @@ class InvoiceLoadOutController extends Controller
 			  'b' => $b
 	     ]);
     }
-
-    
 
 }

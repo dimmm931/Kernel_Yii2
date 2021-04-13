@@ -96,7 +96,7 @@ a.desc:after {
     border: none;
 }
 
-@media(max-width:767px) {
+@media(max-width: 767px) {  /* 767px */
     .nav li > form > button.logout {
         display:block;
         text-align: left;

@@ -1,8 +1,6 @@
 <?php
 
 /* @var $this yii\web\View */
-
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -47,12 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
    $invoice = Yii::$app->security->generateRandomString(5). "-" . time(); 
    ?>
   
-   
-	<h3><span class="p-5 bg-success">Накладна  <i class="fa fa-print " style="font-size:34px"></i> <b> <?=$invoice?></b></h3>
-	
+	<h3>
+        <span class="p-5 bg-success">
+            Накладна  
+            <i class="fa fa-print " style="font-size:34px"></i> 
+            <b> <?=$invoice?> </b>
+        </span>
+    </h3>
 	<br>
 	
-		
 	<div class="col-sm-12 col-xs-12"></div>
 	
 	    <?php $form = ActiveForm::begin( 
@@ -89,24 +90,13 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	
 
-	
-	
 	<div class="col-sm-12 col-xs-12">
         <div class="form-group">
             <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
-       </div>
-	 </div>
+        </div>
+	</div>
 
     <?php ActiveForm::end(); ?>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
     
 </div>

@@ -38,7 +38,8 @@ class TransferRights extends \yii\db\ActiveRecord
     {
         return [
             [[ 'user2',  'product_id', 'invoice_id', 'from_user_id', 'to_user_id', 'unix_time', 'product_weight'], 'required'],
-            [['product_id', 'from_user_id', 'to_user_id', 'unix_time'], 'integer'],
+            [['product_id', 'from_user_id', 'to_user_id', 'unix_time', 'product_weight'], 'integer'],
+			['product_weight', 'compare', 'compareValue' => 1, 'operator' => '>='],
             [['date'], 'safe'],
             [['invoice_id'], 'string', 'max' => 77],
 			['product_weight','validateWeight'], //my validation function validateWeight

@@ -48,6 +48,7 @@ class InvoiceLoadIn extends \yii\db\ActiveRecord
             [['user_kontagent_id', 'product_nomenklatura_id', 'unix', 'elevator_id', 'truck_weight_netto', 'truck_weight_bruto', 'product_wight', 'trash_content', 'humidity'], 'integer'],
             [['date'], 'safe'],
             [['invoice_id', 'carrier', 'driver', 'truck'], 'string', 'max' => 77],
+			['product_wight', 'compare', 'compareValue' => 1, 'operator' => '>='],
         ];
     }
 
