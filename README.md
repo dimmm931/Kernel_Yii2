@@ -1,21 +1,20 @@
 ## Booking application on Yii2
 
-- <p>A Yii2 application for elevator users with personal accounts</p>
+- <p>A Yii2 application for elevator facility users with personal account(to store wheat, corn, rice crops, buckwheat, oats)</p>
 - <p>App works on SQL DB, to run the application on <b>http://localhost</b>, copy the repository code and run <b>composer install</b> to load all dependencies. </p>
 - <p>Edit you database name at <b>/config/db.php</b> </p>
 - <p>Then use <b>php yii migrate</b> to migrate databases</p>
-- <p>To migrate RBAC tables use command <b>php yii migrate --migrationPath=@yii/rbac/migrations/</b></p>
+- <p>After use command <b>php yii migrate --migrationPath=@yii/rbac/migrations/</b> to migrate RBAC tables </p>
+- <p>After the migration is completed, run the seeding command <b>php yii seed</b> to seed the necessary data (products, elevators list) and create a user with admin rights, after you may login using login: <b>test</b>, password: <b>testtest</b> </p>
+- <p>If for some reason your migration/seeding fails, please use SQL dump to import DB tables via PpMyAdmin</p>
+
 - <p> To test on localhost, apart from above you must have PHP installed and  Web server running on your machine </p>
-- <p>You may create a new user or after executing the seeding command <b>php yii seed</b>, login using login: <b>test</b>, password: <b>testtest</b> </p>
-- <p>After login, the user is redirected to personal account, where he can book, view or delete his own dates and view calendar free dates or booked ones (booked by him or other users)</p>
 
 ## Brief overview of the application
 
 ### Start page, sing in or sign up.
 
 ![Screenshot](web/images/Screenshots/1.png)
-
-![Screenshot](web/images/Screenshots/2.png)
 
 ### User's personal account.
 
@@ -57,6 +56,8 @@
 
 ![Screenshot](web/images/Screenshots/14.png)
 
+![Screenshot](web/images/Screenshots/18.png)
+
 ### Admin panel, section "View all users".
 
 ![Screenshot](web/images/Screenshots/15.png)
@@ -69,9 +70,18 @@
 
 ### Gif video.
 
-![image](https://drive.google.com/uc?export=view&id=1r2D2W9z1NomG5evTNhsS51INeCSafFfH)
+![image](https://drive.google.com/uc?export=view&id=1rp5EtqXuIyzK1GByAakHlg0Lm5Ll_1vf)
 
 [Watch full video on Youtube]( https://youtu.be/tx6Vq0NIm6k )
+
+
+### Additional info
+
+- <p>When user loads in product to elevator, admin creates a new invoice (Controller)</p>
+- <p>Form includes hasOne relation and dropdowns. After form is saved to db </p>
+- <p>A message is sent to user {db Messages} and user's balance is plus-ed++ {db Balance}</p>
+- <p>When user loads out product, he goes to "Load out" section, select product from dropdown (which contains only products, the user has on a balance </p>
+- <p>Weight to load out is validated by custom validation in order not to take more than on his balance</p> 
 
 ### Yii2 Info
 

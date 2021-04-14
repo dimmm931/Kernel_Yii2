@@ -30,15 +30,20 @@ class m191224_134405_create_user_table extends Migration
         }
  
         $this->createTable('user', [
-            'id' => $this->primaryKey(),
-            'username' => $this->string()->notNull()->unique(),
-            'auth_key' => $this->string(32)->notNull(),
-            'password_hash' => $this->string()->notNull(),
+            'id'                   => $this->primaryKey(),
+            'username'             => $this->string()->notNull()->unique(),
+            'auth_key'             => $this->string(32)->notNull(),
+            'password_hash'        => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-            'email' => $this->string()->notNull()->unique(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(9),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'email'                => $this->string()->notNull()->unique(),
+            'status'               => $this->smallInteger()->notNull()->defaultValue(9),
+            'first_name'           => $this->string(77)->notNull(),
+            'last_name'            => $this->string(77)->notNull(),
+            'company_name'         => $this->string(77)->notNull(), 
+            'phone_number'         => $this->string(77)->notNull(),
+            'address'               => $this->string(77)->notNull(),
+            'created_at'           => $this->integer()->notNull(),
+            'updated_at'           => $this->integer()->notNull(),
         ], $tableOptions);
     }
 	
