@@ -95,9 +95,6 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 	
-	
-	
-	
  
     /**
      * @inheritdoc
@@ -115,7 +112,7 @@ class User extends ActiveRecord implements IdentityInterface
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
  
-    //====================================================
+ 
     /**
      * Finds user by username (edited)
      *
@@ -138,8 +135,8 @@ class User extends ActiveRecord implements IdentityInterface
 	
 	
 	
-	  //==============================================
-	  /**
+
+	/**
      * Finds user by email (edited)
      *
      * @param string $email
@@ -212,5 +209,4 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
  
-
 }

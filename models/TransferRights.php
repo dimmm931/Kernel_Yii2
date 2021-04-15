@@ -23,6 +23,7 @@ class TransferRights extends \yii\db\ActiveRecord
 {
 	
 	public $user2; //autocomplete field
+    
     /**
      * @inheritdoc
      */
@@ -65,76 +66,116 @@ class TransferRights extends \yii\db\ActiveRecord
     }
 	
 	
-	  //hasOne relation
-	  public function getProducts()
-	  {
-          return $this->hasOne(ProductName::className(), ['pr_name_id' => 'product_id']); 
-      }
+
+      
+    /**
+     * hasOne relation
+     * @return \yii\db\ActiveQuery
+     *
+     */
+	public function getProducts()
+	{
+        return $this->hasOne(ProductName::className(), ['pr_name_id' => 'product_id']); 
+    }
 	  
 	  
-	  //hasOne relation -> gets User2 (receiver))username by ID)
-	  public function getUsers()
-	  {
-          return $this->hasOne(User::className(), ['id' => 'to_user_id']); 
-      }
+    
+    /**
+     * hasOne relation, -> gets User2 (receiver))username by ID)
+     * @return \yii\db\ActiveQuery
+     *
+     */
+	public function getUsers()
+	{
+        return $this->hasOne(User::className(), ['id' => 'to_user_id']); 
+    }
 	  
-	   //hasOne relation2-> gets this User(sender))username by ID)
-	  public function getUsers2()
-	  {
-          return $this->hasOne(User::className(), ['id' => 'from_user_id']); 
-      }
 	
-	//my validation, checks if user is not taking more than he has
-	 public function validateWeight()
-	 {
-		  $b = Balance::find()->where(['balance_user_id' => Yii::$app->user->identity->id])->andWhere(['balance_productName_id' => $this->product_id]) -> one();
-		  if ($b->balance_amount_kg < $this->product_weight){
-			  $this->user2 = '';
-			  $this->addError('product_weight','Недостатньо на Вашому балансi. Доступно лише ' . $b->balance_amount_kg . ' кг.');
-		  }
-     }
+    /**
+     * hasOne relation, gets this User(sender))username by ID)
+     * @return \yii\db\ActiveQuery
+     *
+     */
+	public function getUsers2()
+	{
+        return $this->hasOne(User::className(), ['id' => 'from_user_id']); 
+    }
+	
+    	
+    /**
+     * my validation, checks if user is not taking more than he has
+     * @return null
+     *
+     */
+	public function validateWeight()
+	{
+		$b = Balance::find()->where(['balance_user_id' => Yii::$app->user->identity->id])->andWhere(['balance_productName_id' => $this->product_id]) -> one();
+		if ($b->balance_amount_kg < $this->product_weight) {
+			$this->user2 = '';
+			$this->addError('product_weight','Недостатньо на Вашому балансi. Доступно лише ' . $b->balance_amount_kg . ' кг.');
+		}
+    }
 	 
-	 //my validation, checks if user selects not himself to transfer product rights
+	
+    /**
+     * my validation, checks if user selects not himself to transfer product rights
+     * @return null
+     *
+     */
 	 public function  validateNotSelfId()
-	 {
-		  if ($this->to_user_id == Yii::$app->user->identity->id){
-			  $this->addError('user2','Ви не можете обрати сам себе');
-		  }
-     }
+	{
+		if ($this->to_user_id == Yii::$app->user->identity->id){
+			$this->addError('user2','Ви не можете обрати сам себе');
+		}
+    }
 	 
 	 
-	  //Check User balance (if user has relvant product balance in DB Balance, i.e product !=0)
-	  public function checkBalance($id)
-	  {
-		  $userBalance = Balance::find()->where(['balance_user_id' => $id])->andWhere(['balance_productName_id' => $this->product_id])->one();
-		  return $userBalance;	  
-	  }
+	  
+    /**
+     * Check User balance (if user has relvant product balance in DB Balance, i.e product !=0)
+     * @return object
+     *
+     */
+	public function checkBalance($id)
+	{
+		$userBalance = Balance::find()->where(['balance_user_id' => $id])->andWhere(['balance_productName_id' => $this->product_id])->one();
+		return $userBalance;	  
+	}
 	  
 	  
-	 //update Reciever column
-	 public function updateColumnHistoryReciever($numb)
-	 {
-		 //saves new Recievers's balance to new column in TransferRights (for History transactions)
-		 $inv = self::find()->where(['invoice_id' => $this->invoice_id])->one();
-		 $inv->final_balance_receiver = (int)$numb;
-		 $inv->save(false);
-	 }
+	 
+    /**
+     * update Reciever column
+     * @return null
+     */
+	public function updateColumnHistoryReciever($numb)
+	{
+		//saves new Recievers's balance to new column in TransferRights (for History transactions)
+		$inv = self::find()->where(['invoice_id' => $this->invoice_id])->one();
+		$inv->final_balance_receiver = (int)$numb;
+		$inv->save(false);
+	}
 	 
 	  
-	  //
-	  //adds and updates with new weight	 
-	  public function balanceAdd($user2)
-	  {
-		$prev = $user2->balance_amount_kg;
+    /**
+     * adds and updates with new weight
+     * @return null
+     */      
+	public function balanceAdd($user2)
+	{
+	    $prev = $user2->balance_amount_kg;
 		$new = $prev + $this->product_weight;
 		$user2->balance_amount_kg = $new;
 		$user2->balance_last_edit = date('Y-m-d H:i:s'); //update time
 		$user2->save();
-		
 		$this->updateColumnHistoryReciever($new);
 	}		
 
-	//saves new row with product and weigth	  
+	
+    /**
+     * saves new row with product and weight	
+     * @return null
+     */    
 	public function addNewProduct($user2)
 	{
 		$m = new Balance();
@@ -142,45 +183,51 @@ class TransferRights extends \yii\db\ActiveRecord
 		$m->balance_user_id = $this->to_user_id; //user id 
 		$m->balance_amount_kg = $this->product_weight; //product weight
 		$m->save();
-		
 		$this->updateColumnHistoryReciever($this->product_weight);
 	}
 	 
 	 
-	 //saves final balance to db TransferRight
-	 public function updateColumnHistorySender($numb)
-	 {
-		 //saves new Sender's balance to new column in TransferRights (for History transactions)
-		 $inv = self::find()->where(['invoice_id' => $this->invoice_id])->one();
-		 $inv->final_balance_sender = (int)$numb;
-		 $inv->save(false);
-	 }
+    /**
+     * saves final balance to db TransferRight	
+     * @param int $numb
+     * @return null
+     */ 
+	public function updateColumnHistorySender($numb)
+	{
+		//saves new Sender's balance to new column in TransferRights (for History transactions)
+		$inv = self::find()->where(['invoice_id' => $this->invoice_id])->one();
+		$inv->final_balance_sender = (int)$numb;
+		$inv->save(false);
+	}
 	 
 	
-	// to minus -- product from user's balance 
-	 public function deductProduct($user1)
-	 {
-		 //$b = Balance::find()->where(['balance_user_id' => Yii::$app->user->identity->id])->andWhere(['balance_productName_id' => $this->product_id]) -> one();
+    /**
+     * to minus -- product from user's balance 	
+     * @param object $user1
+     * @return null
+     */
+	public function deductProduct($user1)
+	{
+		//$b = Balance::find()->where(['balance_user_id' => Yii::$app->user->identity->id])->andWhere(['balance_productName_id' => $this->product_id]) -> one();
 		 
-		 if($user1->balance_amount_kg == $this->product_weight){
-			 $user1->delete();
-			 $newAmount = 0;
-		 } else {
-			 $newAmount = $user1->balance_amount_kg - $this->product_weight;
-			 $user1->balance_amount_kg = $newAmount ;
-             $user1->save();			 
-		 }
-		 $this->updateColumnHistorySender($newAmount);
-	 }
+		if($user1->balance_amount_kg == $this->product_weight){
+			$user1->delete();
+			$newAmount = 0;
+		} else {
+			$newAmount = $user1->balance_amount_kg - $this->product_weight;
+			$user1->balance_amount_kg = $newAmount ;
+            $user1->save();			 
+		}
+		$this->updateColumnHistorySender($newAmount);
+	}
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	//notify the user-> send the message to current user(sender)
+	
+    /**
+     * notify the user-> send the message to current user(sender)	
+     * @return null
+     * 
+     */
 	public function  sendMessageUser1()
 	{
 		$model = new Messages();
@@ -196,23 +243,25 @@ class TransferRights extends \yii\db\ActiveRecord
 		$model->save();
 	}
 	
-	//notify the user-> send the message to User who obtained new product(reciever)
+	
+    /**
+     * notify the user-> send the message to User who obtained new product(reciever)	
+     * @return null
+     * 
+     */
 	public function  sendMessageUser2()
 	{
 		$model = new Messages();
 		$model->m_sender_id = 2; // Yii::$app->user->identity->id;
 		$model->m_receiver_id = $this->to_user_id;
 		$model->m_text = "<p>Шановний <b>". $this->users->first_name . "</b></p>" .//hasOne relation (gets User2(reciever) username by ID)  
-		                "<p>Користувач <b>" . $this->users2->first_name  . "</b>" .//hasOne relation (gets User(sender)username by ID)
-						" переоформив на Вас " . $this->products->pr_name_name . //hasOne relation(gets product name by ID)
-						" " . $this->product_weight . "кг.</p>" .   //weight
-						"<p> Номер накладної  " . $this->invoice_id . ".</p>" .
-						"<p>Best regards, Admin team. </p>";  
+		                 "<p>Користувач <b>" . $this->users2->first_name  . "</b>" .//hasOne relation (gets User(sender)username by ID)
+						 " переоформив на Вас " . $this->products->pr_name_name . //hasOne relation(gets product name by ID)
+						 " " . $this->product_weight . "кг.</p>" .   //weight
+						 "<p> Номер накладної  " . $this->invoice_id . ".</p>" .
+						 "<p>Best regards, Admin team. </p>";  
 		$model->m_unix = time();
 		$model->save();
 	}
-	  //
-	  
-	
 	 
 }

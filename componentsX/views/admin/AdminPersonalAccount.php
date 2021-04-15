@@ -7,17 +7,17 @@ use yii\bootstrap\Collapse;  //  Collapse (hide/show)
 class AdminPersonalAccount
 {
 	
-	// Displays all Elevators' balance of all users
-    //---------------------------------------------------------
-     public static function showAllElevetorStatistics($userCount, $products, $balance) {
 	
+    /**
+     * Displays all Elevators' balance of all users
+     * 
+     */
+    public static function showAllElevetorStatistics($userCount, $products, $balance) {
 	    
 	    echo '<div class="col-sm-12 col-xs-12 panel panel-default">';
 	    echo '<p class="panel-heading">Загалом в системі зареєстровано користувачів: <i class="fa fa-male" style="font-size:1.2em"></i> <b>' .  $userCount->count() . '</b><p>';
 	    echo '<p class="panel-heading">Загалом на елеваторі зберігається:<p>';
 	 
-		
-
 		foreach($products  as $product){
 			$productAmount_1 = 0;
 			foreach($balance as $b){
@@ -35,16 +35,19 @@ class AdminPersonalAccount
 	 
 	 
 	 
-	//Collapse widget with user info
-	//---------------------------------------------------------
-     public static function showCollapsedUserInfo() {
+	
+	/**
+     * Collapse widget with user info
+     * 
+     */
+    public static function showCollapsedUserInfo() {
 
-	     if(Yii::$app->user->can('adminX')){
+	    if(Yii::$app->user->can('adminX')){
 			 $admin = "<b>У Вас є права адміністратора.</b>";
 			 } 
 		  
-         echo  '<br><div class="col-sm-12 col-xs-12">';
-         echo Collapse::widget([
+        echo  '<br><div class="col-sm-12 col-xs-12">';
+        echo Collapse::widget([
              'items' => [
                  [
                     'label' => 'Натисніть щоб переглянути деталі профілю',  
@@ -66,10 +69,7 @@ class AdminPersonalAccount
          ]);
         // End Collapse widget
         echo '</div>';
-     }
-	 
-	 
-	 
+    } 
 	 
 }
 

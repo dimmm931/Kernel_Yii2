@@ -42,7 +42,5 @@ class InvoiceLoadOut_Just_Admin_Form extends Model
 
         ];
     }
-	
-	
 	  
 }

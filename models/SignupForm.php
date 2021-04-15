@@ -55,35 +55,34 @@ class SignupForm extends Model
      */
     public function signup()
     {
- 
         if (!$this->validate()) {
             return null;
         }
  
-        $user = new User();
-        $user->username = $this->username;
-        $user->email = $this->email;
+        $user               = new User();
+        $user->username     = $this->username;
+        $user->email        = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-		
 		$user->phone_number = $this->phone_number;
-		$user->first_name = $this->first_name;
-		$user->last_name = $this->last_name;
+		$user->first_name   = $this->first_name;
+		$user->last_name    = $this->last_name;
 		$user->company_name = $this->company_name;
-		$user->address = $this->address;
+		$user->address      = $this->address;
         return $user->save() ? $user : null;
     }
 	
-	 //my validation
-	 public function validateDatesX(){
-		  //$RegExp_Phone = '/^[+]380\([\d]{1,4}\)[0-9]+$/';
-		  $RegExp_Phone = '/^[+]380[\d]{1,4}[0-9]+$/';
-		  if (!preg_match($RegExp_Phone, $this->phone_number)){
-			  $this->addError('phone_number','Телефон має бути у форматі +380********* ');
-		  }
-     }
-	   
-	   
-	   
- 
+	 
+    /**
+     * My validation
+     *
+     * 
+     */
+	public function validateDatesX(){
+		//$RegExp_Phone = '/^[+]380\([\d]{1,4}\)[0-9]+$/';
+		$RegExp_Phone = '/^[+]380[\d]{1,4}[0-9]+$/';
+		if (!preg_match($RegExp_Phone, $this->phone_number)){
+			$this->addError('phone_number','Телефон має бути у форматі +380********* ');
+		}
+    }
 }

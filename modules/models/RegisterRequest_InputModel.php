@@ -13,12 +13,9 @@ use yii\base\Model;
  */
 class RegisterRequest_InputModel extends Model
 {
-	
-	
 	 public $yourInput;
 	 public $yourInputEmail;
 
-	
     /**
      * @return array the validation rules.
      */
@@ -33,11 +30,8 @@ class RegisterRequest_InputModel extends Model
 public function attributeLabels()
     {
         return [
-            'yourInput' => 'userID',
-
-            
+            'yourInput' => 'userID',    
         ];
     }
-
     
 }

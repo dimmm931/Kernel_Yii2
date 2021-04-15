@@ -26,15 +26,17 @@ class InvoiceLoadOut_2_Intervals extends InvoiceLoadOut
 	}
 
     
-    
-	
 			
-   /**
-    *  1)$iterator==$i (calculated in for(){} loop), 2)$nextIterator (hour+1)==$t==$i+1 (for those who has duplicate), if does not use NULL
-    *  3)$indexOf==position 4)$result==Act record array result from Controller
-    *  5))$minutesStart==30 OR 00  6)$minutesEnd== 30 OR 00
-    */
-    public function DisplayReserved($iterator,$nextIterator,$indexOf,$result,$minutesStart,$minutesEnd)
+
+    
+    /** 
+     * Builds reserved dates
+     * 1)$iterator==$i (calculated in for(){} loop), 2)$nextIterator (hour+1)==$t==$i+1 (for those who has duplicate), if does not use NULL
+     * 3)$indexOf==position 4)$result==Act record array result from Controller
+     * 5))$minutesStart==30 OR 00  6)$minutesEnd== 30 OR 00
+     * @return string $text
+     */
+    public function DisplayReserved($iterator, $nextIterator, $indexOf, $result, $minutesStart, $minutesEnd)
 	{ 
 	    global $text;
  
@@ -52,11 +54,13 @@ class InvoiceLoadOut_2_Intervals extends InvoiceLoadOut
 
 
 
-    /** DisplayReserved($i,null,$indexOf,$result, '00',  '30');
-    *   DisplayReserved($i,$t,$indexOf+1,$result, '30',  '00');
-    *   Function which forms free cells and <a href> with data to book it
+   /** 
+    * DisplayReserved($i,null,$indexOf,$result, '00',  '30');
+    * DisplayReserved($i,$t,$indexOf+1,$result, '30',  '00');
+    * Function which forms free cells and <a href> with data to book it
+    * @return string $text
     */                                                                       
-    public function DisplayFree($iterator,$nextIterator,$minutesStart,$minutesEnd)
+    public function DisplayFree($iterator, $nextIterator, $minutesStart, $minutesEnd)
 	{ 
 	    global $text;
         if (is_null($nextIterator)){
@@ -75,11 +79,6 @@ class InvoiceLoadOut_2_Intervals extends InvoiceLoadOut
         }
  
         $text = $text ."<div class='col-sm-2 col-xs-3 free shadowX' data-inter='" .$iterator . "' data-quarter='" . $quarter . "' > Free =>  ".$iterator.  "."   .$minutesStart . "-" . $nextIterator . "." . $minutesEnd . "</div>";
-        //$text = $text ."<p style='display:none;margin-top:0.7em;background-color:;' class='nnn'>  Your agenda</br> <textarea rows='2' cols='50' placeholder='...'></textarea> </br><button type='button' class='bookFinal' id='' > OK </button>  </p>";
-
-     }
-    
-
-	
-	 
+    }
+		 
 }

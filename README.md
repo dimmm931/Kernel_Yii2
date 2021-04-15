@@ -5,9 +5,8 @@
 - <p>Edit you database name at <b>/config/db.php</b> </p>
 - <p>Then use <b>php yii migrate</b> to migrate databases</p>
 - <p>After use command <b>php yii migrate --migrationPath=@yii/rbac/migrations/</b> to migrate RBAC tables </p>
-- <p>After the migration is completed, run the seeding command <b>php yii seed</b> to seed the necessary data (products, elevators list) and create a user with admin rights, after you may login using login: <b>test</b>, password: <b>testtest</b> </p>
+- <p>When the migration is completed, run the seeding command <b>php yii seed</b> to seed the necessary data (products, elevators list) and create a user with admin rights, after you may login using login: <b>test</b>, password: <b>testtest</b> </p>
 - <p>If for some reason your migration/seeding fails, please use SQL dump to import DB tables via PpMyAdmin</p>
-
 - <p> To test on localhost, apart from above you must have PHP installed and  Web server running on your machine </p>
 
 ## Brief overview of the application

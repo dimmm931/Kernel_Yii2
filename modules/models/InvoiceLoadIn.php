@@ -77,28 +77,46 @@ class InvoiceLoadIn extends \yii\db\ActiveRecord
         ];
     }
 	
-	  //hasOne relation
-	  public function getUsers()
-	  {
-          return $this->hasOne(User::className(), ['id' => 'user_kontagent_id']); 
-      }
+	/**
+     * hasOne relation, gets this User(sender))username by ID)
+     * @return \yii\db\ActiveQuery
+     *
+     */
+	public function getUsers()
+	{
+        return $this->hasOne(User::className(), ['id' => 'user_kontagent_id']); 
+    }
 	  
-	   //hasOne relation
-	  public function getProducts()
-	  {
-          return $this->hasOne(ProductName::className(), ['pr_name_id' => 'product_nomenklatura_id']); 
-      }
+	/**
+     * hasOne relation, gets this User(sender))username by ID)
+     * @return \yii\db\ActiveQuery
+     *
+     */
+	public function getProducts()
+	{
+        return $this->hasOne(ProductName::className(), ['pr_name_id' => 'product_nomenklatura_id']); 
+    }
 	  
 	  
-	  //Check User balance (if user has relvant product balance in DB Balance, i.e product !=0)
-	  public function checkBalance()
-	  {
-		  $userBalance = Balance::find()->where(['balance_user_id' => $this->user_kontagent_id])->andWhere(['balance_productName_id' => $this->product_nomenklatura_id])->one();
-		  return $userBalance;
+	  
+    /**
+     * Check User balance (if user has relvant product balance in DB Balance, i.e product !=0)
+     * @return object
+     *
+     */
+	public function checkBalance()
+	{
+		$userBalance = Balance::find()->where(['balance_user_id' => $this->user_kontagent_id])->andWhere(['balance_productName_id' => $this->product_nomenklatura_id])->one();
+		return $userBalance;
 			  
-	  }
+	}
 	 
-    //adds and updates with new weight	 
+    
+    /**
+     * adds and updates with new weight
+     * @return null
+     *
+     */    
 	public function balanceAdd($res)
 	{
 		$prev = $res->balance_amount_kg;
@@ -106,11 +124,16 @@ class InvoiceLoadIn extends \yii\db\ActiveRecord
 		$res->balance_amount_kg = $new;
 		$res->balance_last_edit = date('Y-m-d H:i:s'); //update time
 		$res->save();
-		
 		$this->saveInvoiceLoadInBalance($new);
 	}		
 
-	//saves new row with product and weight	  
+		
+        
+    /**
+     * saves new row with product and weight
+     * @return null
+     *
+     */    
 	public function addNewProduct()
 	{
 	    $m = new Balance();
@@ -118,13 +141,16 @@ class InvoiceLoadIn extends \yii\db\ActiveRecord
 		$m->balance_user_id = $this->user_kontagent_id; //product id
 		$m->balance_amount_kg = $this->product_wight; //product weight
 		$m->save();
-		
 		$this->saveInvoiceLoadInBalance($this->product_wight);
 	}
 	
 	
-	
-	//saves final balance to InvoiceLoadIn
+         
+    /**
+     * saves final balance to InvoiceLoadIn
+     * @return null
+     *
+     */ 
 	function saveInvoiceLoadInBalance($new)
 	{
 		//saves new balance to new column in InvoiceLoadIn
@@ -135,7 +161,11 @@ class InvoiceLoadIn extends \yii\db\ActiveRecord
 	
 	
 	
-	//notify the user-> send the message of getting new product weight
+    /**
+     * notify the user-> send the message of getting new product weight
+     * @return null
+     *
+     */ 
 	public function  sendMessage()
 	{
 		$model = new Messages();

@@ -8,7 +8,8 @@ class PersonalAccount
 {
 	
     //---------------------------------------------------------
-     public static function showUserBalance($balance) {
+    public static function showUserBalance($balance) 
+    {
 	
 	    //display user's balance
 		    if(!$balance){
@@ -25,13 +26,14 @@ class PersonalAccount
 				    echo "</div>";
 			    }	
 			}
-	 }
+	}
 	 
 	 
 	 
 	
 	//---------------------------------------------------------
-     public static function showCollapsedUserInfo() {
+    public static function showCollapsedUserInfo() 
+    {
          //Collapse widget
         echo Collapse::widget([
         'items' => [
@@ -56,11 +58,7 @@ class PersonalAccount
             ], 
 	     ]
       ]);
-  // End Collapse widget      
-     }
-	 
-	 
-	 
+    }
 	 
 }
 
