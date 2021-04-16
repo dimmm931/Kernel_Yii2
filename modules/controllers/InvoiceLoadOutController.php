@@ -15,7 +15,6 @@ use app\modules\models\InvoiceLoadOut_Just_Admin_Form;
 use app\modules\models\Elevators;
 //use app\models\User;
 //use app\models\ProductName;
-
 //use app\models\Balance;
 
 
@@ -55,8 +54,6 @@ class InvoiceLoadOutController extends Controller
 	  }
 	  
 	  
-	  
-	  
 
     /**
      * Lists all InvoiceLoadOut requests sent by user. Main page, rest of info is added by ajax.
@@ -64,33 +61,30 @@ class InvoiceLoadOutController extends Controller
      */
     public function actionIndex()
     {
-	   $finalCheckifFree = false;
-	   $model = new InvoiceLoadOut_Just_Admin_Form(); //form for admin to add selected date and finilize the user's request.
-	   $model_1 = new InvoiceLoadOut();
+	    $finalCheckifFree = false;
+	    $model = new InvoiceLoadOut_Just_Admin_Form(); //form for admin to add selected date and finilize the user's request.
+	    $model_1 = new InvoiceLoadOut();
 	   
-       $requestsLoadOutCount = InvoiceLoadOut::find()->where(['confirmed_by_admin' => self::STATUS_PENDING]) -> all(); //for counting
-	   $allElevators = Elevators::find()->all();
+        $requestsLoadOutCount = InvoiceLoadOut::find()->where(['confirmed_by_admin' => self::STATUS_PENDING]) -> all(); //for counting
+	    $allElevators = Elevators::find()->all();
 	   
-	   
-	   //LinkPager (to list all invoices where self::STATUS_PENDING)
-	   $query = InvoiceLoadOut::find()->where(['confirmed_by_admin' => self::STATUS_PENDING]);
-       $pages= new Pagination(['totalCount' => $query->count(), 'pageSize' => 5]);
-       $modelPageLinker = $query->offset($pages->offset)->limit($pages->limit)->all();
+	    //LinkPager (to list all invoices where self::STATUS_PENDING)
+	    $query = InvoiceLoadOut::find()->where(['confirmed_by_admin' => self::STATUS_PENDING]);
+        $pages= new Pagination(['totalCount' => $query->count(), 'pageSize' => 5]);
+        $modelPageLinker = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
-	   //save the form and finilize the user's request
+	    //save the form and finilize the user's request
 	    if ($model->load(Yii::$app->request->post())) {
-			 //finds the request to LoadOut started by the User, here finilize it by adding date to load, intervals, quarters and elevatpr number
+			//finds the request to LoadOut started by the User, here finilize it by adding date to load, intervals, quarters and elevatpr number
 			$thisInvoice = InvoiceLoadOut::find()->where(['id' => $model->id])->one(); //invoice ID, set to hidden form by js/invoice_load_out.js 
 			
 			//Aditional final check if DATE/TIME is still free (if someone has not taken this time while we were booking)
-			
 			if($model_1->checkIfFree_date($model)){
-				Yii::$app->getSession()->setFlash('statusFAIL', "На жаль, за цей час дату вже було зайнято. Оберіть іншую дату.");
+			    Yii::$app->getSession()->setFlash('statusFAIL', "На жаль, за цей час дату вже було зайнято. Оберіть іншую дату.");
                 return $this->refresh();				
 			} 
 			
-
 			//Aditional final check if someone has not edited/proceeded this invouce while we were booking)
 			if($model_1->checkIfFreeInvoice($model)){
 				Yii::$app->getSession()->setFlash('statusFAIL', "На жаль, за цей час цю накладну вже було опрацьовано. Оберіть іншую накладну.");
@@ -98,15 +92,14 @@ class InvoiceLoadOutController extends Controller
 			}
 				
 	
-			
 			//assign fields from InvoiceLoadOut_Just_Admin_Form form
 			//$model_1->assignFields($thisInvoice);
-			$thisInvoice->confirmed_by_admin = '1'; 
+			$thisInvoice->confirmed_by_admin  = '1'; 
 			$thisInvoice->confirmed_date_unix = $model->confirmed_date_unix;
-			$thisInvoice->date_to_load_out = $model->date_to_load_out;
-			$thisInvoice->b_intervals = $model->b_intervals;
-			$thisInvoice->b_quarters = $model->b_quarters;
-			$thisInvoice->elevator_id = $model->elevator_id;
+			$thisInvoice->date_to_load_out    = $model->date_to_load_out;
+			$thisInvoice->b_intervals         = $model->b_intervals;
+			$thisInvoice->b_quarters          = $model->b_quarters;
+			$thisInvoice->elevator_id         = $model->elevator_id;
 			
 			if ($thisInvoice ->save(false)){
 				$model_1->sendMessage_LoadOut_Confirmed($thisInvoice, $model);
@@ -121,60 +114,48 @@ class InvoiceLoadOutController extends Controller
 		
         return $this->render('load-out-index', [
             'requestsLoadOutCount' => $requestsLoadOutCount,
-			'modelPageLinker' => $modelPageLinker, //pageLinker
-            'pages' => $pages,      //pageLinker
-			'model' =>  $model,  //model for admin form
-			'allElevators' => $allElevators //list of all elevators for dropdown
+			'modelPageLinker'      => $modelPageLinker, //pageLinker
+            'pages'                => $pages,      //pageLinker
+			'model'                =>  $model,  //model for admin form
+			'allElevators'         => $allElevators //list of all elevators for dropdown
         ]);
     }
 
-    
-
-	
-	
-	
+   
 	
 
-	//works with ajax sent from js/admin/invoice_load_out.js -> method gets data for one selected invoice
-    // **************************************************************************************
-    // **************************************************************************************
-    // **                                                                                  **
-    // ** 
+    /**
+     * Works with ajax sent from js/admin/invoice_load_out.js -> method gets data for one selected invoice
+     * @return json
+     *
+     */
     public function actionAjax_get_invoice() 
     {	
 	    $invoiceLoadOut = InvoiceLoadOut::find()->where(['id' => $_POST['serveInvoiceLoadOutID']]) -> one();
 	  
 		//RETURN JSON DATA
-         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
-          return [
-             'result_status' => "OK", // return ajx status
-             'code' => 100,	 
-			 'invoiceLoadOut' => $invoiceLoadOut, 
-          ]; 
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
+         return [
+            'result_status' => "OK", // return ajx status
+            'code' => 100,	 
+			'invoiceLoadOut' => $invoiceLoadOut, 
+        ]; 
 	}
-    
-	// **                                                                                  **
-    // **************************************************************************************
-    // **************************************************************************************
+
 	
 	
 	
 	
-	
-	
-	
-	//works with ajax sent from js/admin/datepicker_action.js -> method gets Interval list for a selected date, returns all html
-    // **************************************************************************************
-    // **************************************************************************************
-    // **                                                                                  **
-    // ** 
+    /**
+     * Works with ajax sent from js/admin/datepicker_action.js -> method gets Interval list for a selected date, returns all html
+     * @return json
+     *
+     */
     public function actionAjax_get_interval_list() 
     {	
+        global $text;
 	    $InvoiceLoadOutIntervals = new InvoiceLoadOut_2_Intervals();
 		//$InvoiceLoadOutIntervals->test();
-			
-		
-	    global $text;
 	    $dayPost = Yii::$app->request->post('serverSelectedDateUnix'); //$_POST['serverSelectedDateUnix'] from ajax ->js/admin/datepicker_action.js;
 		$elevatorPost = Yii::$app->request->post('serverSelectedElevator'); 
 		
@@ -185,7 +166,6 @@ class InvoiceLoadOutController extends Controller
 			      ->andWhere(['elevator_id' => (int)$elevatorPost ]) 
 			      ->all(); 
 		
-
         $bIntervals = array();// array for intervals available 
 	
 	    foreach($result as $ss){
@@ -198,45 +178,40 @@ class InvoiceLoadOutController extends Controller
 	    $that_date  = time(); //unixTime now
         $first_hour = $that_date - ($that_date % (60*60*24)); //unixTime of now at 00:00:00
 
-	 
-	   if($dayPost == $first_hour && ( ((date("H") + 1) > 8) || ((date("H") + 1) < 20)) ){ //if current hour is between 8 -20
+	    if($dayPost == $first_hour && ( ((date("H") + 1) > 8) || ((date("H") + 1) < 20)) ){ //if current hour is between 8 -20
 	       $startHour = date("H") + 1; //start from current hour
-	   } else {
+	    } else {
 		   $startHour = 8;
-	   }
-	   $start = $startHour;
+	    }
+	    $start = $startHour;
 
-	 
-	   for($i = $start; $i < 20; $i++){
-             //if time exists in array  $bIntervals, displays taken
-             if(in_array($i, $bIntervals)){ 
-			     $indexOf = array_search($i, $bIntervals); // find the indexOf of $i, which exists in array to use {$rowF[$indexOf]['b_booker'].}
-			     $Next_i = $indexOf + 1;  //the position of first found +1
-			     $t = $i + 1; // next hour
+	    for($i = $start; $i < 20; $i++){
+            //if time exists in array  $bIntervals, displays taken
+            if(in_array($i, $bIntervals)){ 
+			    $indexOf = array_search($i, $bIntervals); // find the indexOf of $i, which exists in array to use {$rowF[$indexOf]['b_booker'].}
+			    $Next_i = $indexOf + 1;  //the position of first found +1
+			    $t = $i + 1; // next hour
 			   
 			   
-			 if(isset($bIntervals[$Next_i])){
-				 $bIntervals[$Next_i] = $bIntervals[$Next_i];
-			 } else {
-				 $bIntervals[$Next_i] = FALSE;
-			 }
+			    if(isset($bIntervals[$Next_i])){
+				    $bIntervals[$Next_i] = $bIntervals[$Next_i];
+			    } else {
+				    $bIntervals[$Next_i] = FALSE;
+			    }
 			 
-				 
-				 
-			   if($i == $bIntervals[$Next_i]){  //if have duplicate = Reserved/Reserved
-					$InvoiceLoadOutIntervals->DisplayReserved($i, null, $indexOf, $result, '00',  '30'); //1st Row  //DisplayReserved($iterator,$nextIterator,$indexOf,$result,$minutesStart,$minutesEnd)
+			    if($i == $bIntervals[$Next_i]){  //if have duplicate = Reserved/Reserved
+			        $InvoiceLoadOutIntervals->DisplayReserved($i, null, $indexOf, $result, '00',  '30'); //1st Row  //DisplayReserved($iterator,$nextIterator,$indexOf,$result,$minutesStart,$minutesEnd)
 				    //second row
-					$Next_indexOf = $indexOf + 1; //Take next row from Active Record result
-					$InvoiceLoadOutIntervals->DisplayReserved($i, $t, $indexOf+1, $result, '30',  '00');  //2nd Row //Reserved second Row
-				   }
+			        $Next_indexOf = $indexOf + 1; //Take next row from Active Record result
+			        $InvoiceLoadOutIntervals->DisplayReserved($i, $t, $indexOf+1, $result, '30',  '00');  //2nd Row //Reserved second Row
+			    }
 				   
- 
-                if( $i!= $bIntervals[$Next_i] ){  //if DOES NOT have duplicate
+                if($i!= $bIntervals[$Next_i] ){  //if DOES NOT have duplicate
 				    if($result[$indexOf]->b_quarters == 0){ // if it is for 9.00-9.30 = Reserved/Free		   
 					    $InvoiceLoadOutIntervals->DisplayReserved($i,null,$indexOf,$result, '00',  '30'); //Reserved 1st Row       
-						//second Free Row
-						$InvoiceLoadOutIntervals->DisplayFree($i,$t,"30","00");
-					}
+				        //second Free Row
+					    $InvoiceLoadOutIntervals->DisplayFree($i,$t,"30","00");
+				    }
 								
 								
 				    if($result[$indexOf]->b_quarters == 3){ // if it is for 9.30-10.00 = Free/Reserved
@@ -244,25 +219,19 @@ class InvoiceLoadOutController extends Controller
 					    //second Reserved
 					    $InvoiceLoadOutIntervals->DisplayReserved($i,$t,$indexOf,$result, '30',  '00');  //2nd Row //Reserved second Row	       
 				    }
-                 }	
-				
-                
+                }	
 			  
-			 } else {  // End if(in_array($i, $bIntervals))  //if i does not exist in array (i.e it is FREE/FREE)
-			     $tt = $i + 1;	
-				 //1st FREE ROW
-                 $InvoiceLoadOutIntervals->DisplayFree($i, null, "00", "30");								   			
-				 //second Fee Row
-				 $InvoiceLoadOutIntervals->DisplayFree($i, $tt,"30","00");
-		     } 
+			} else {  // End if(in_array($i, $bIntervals))  //if i does not exist in array (i.e it is FREE/FREE)
+			    $tt = $i + 1;	
+				//1st FREE ROW
+                $InvoiceLoadOutIntervals->DisplayFree($i, null, "00", "30");								   			
+				//second Fee Row
+				$InvoiceLoadOutIntervals->DisplayFree($i, $tt,"30","00");
+		    } 
 			  
-	   } 
-	 return $text;
+	    } 
+	    return $text;
 	}
     
-	// **                                                                                  **
-    // **************************************************************************************
-    // **************************************************************************************
-	
 
 }

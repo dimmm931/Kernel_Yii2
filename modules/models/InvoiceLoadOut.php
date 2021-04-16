@@ -196,12 +196,12 @@ class InvoiceLoadOut extends \yii\db\ActiveRecord
 		$model = new Messages();
 		$model->m_sender_id = 1; //admin
 		$model->m_receiver_id = Yii::$app->user->identity->id; 
-		$model->m_text = "<p>Dear user <b>". $this->users->first_name . "</b></p>" .//hasOne relation (gets username by ID)
-		                 "<p>Ви надiслали запит на вiдвантаження " . $this->products->pr_name_name . //hasOne relation(gets product name by ID)
-						 " у кількості  " .$this->product_wieght . "кг.</p>" .   //weight
-						 "<p> Номер накладної  " . $this->invoice_unique_id . ".</p>" .
+		$model->m_text = "<p>Шановний <b> " . $this->users->first_name . "</b></p>" . //hasOne relation (gets username by ID)
+		                 "<p>Ви надiслали запит на вiдвантаження " . $this->products->pr_name_name . //hasOne relation(gets product name by ID) //ua-eng text caused the crash
+						 " у кількості  " . $this->product_wieght . "кг.</p>" .   //weight
+						 "<p> Номер накладної <b> " . $this->invoice_unique_id . "</b>.</p>" .
 						 "<p> Очікуйте на повідомлення з підтвердженням адміністратора та датою і часом</p>" .
-						 "<p>Best regards, Admin team. </p>";  
+						 "<p> Best regards, Admin team. </p>";  
 		$model->m_unix = time();
 		$model->save();
 	}
@@ -218,7 +218,7 @@ class InvoiceLoadOut extends \yii\db\ActiveRecord
 		$model->m_sender_id = 1; //admin
 		$model->m_receiver_id = $i->user_id; 
 		//Yii::$app->formatter->locale = 'ru-RU';
-		$model->m_text = "<p>Dear user <b>". $i->users->first_name . "</b></p>" .//hasOne relation (gets username by ID)
+		$model->m_text = "<p>Шановний <b>". $i->users->first_name . "</b></p>" .//hasOne relation (gets username by ID)
 		                "<p>Ми отримали Ваш запит на вiдвантаження <b>" . $i->products->pr_name_name . "</b>" . //hasOne relation(gets product name by ID)
 						" у кількості  <b>" .$i->product_wieght . "</b> кг.</p>" .   //weight
 						"<p> Номер накладної <b> " . $i->invoice_unique_id . "</b>.</p>". 

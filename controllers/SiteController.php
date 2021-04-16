@@ -58,8 +58,8 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
      * @return string
+     * 
      */
     public function actionIndex()
     {
@@ -73,8 +73,8 @@ class SiteController extends Controller
 
     /**
      * Login action.
-     *
      * @return Response|string
+     * 
      */
     public function actionLogin()
     {
@@ -95,8 +95,8 @@ class SiteController extends Controller
 
     /**
      * Logout action.
-     *
      * @return Response
+     * 
      */
     public function actionLogout()
     {
@@ -107,8 +107,8 @@ class SiteController extends Controller
 
     /**
      * Displays contact page.
-     *
      * @return Response|string
+     * 
      */
     public function actionContact()
     {
@@ -125,8 +125,8 @@ class SiteController extends Controller
 
     /**
      * Displays about page.
-     *
      * @return string
+     * 
      */
     public function actionAbout()
     {
@@ -136,7 +136,7 @@ class SiteController extends Controller
 	
      /**
      * Displays registration page
-     *
+     * @return Response|string
      * 
      */
 	public function actionSignup()
@@ -145,10 +145,7 @@ class SiteController extends Controller
  
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
-				
-                /*if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }*/
+
 				Yii::$app->getSession()->setFlash('warnX1', "Ви були успішно зареєстровані. Очікуйте на підтвердження реєстрації адміністратором. Ви отримаєте повідомлення на email, вказаний при реєстрації і після цього зможете заходтити до особистого кабінету.");
                 return $this->goHome();				
             } else {

@@ -46,8 +46,6 @@ class InvoiceLoadInController extends Controller
 	  }
 	  
 	  
-	  
-	  
 
     /**
      * Lists all InvoiceLoadIn models.
@@ -55,7 +53,6 @@ class InvoiceLoadInController extends Controller
      */
     public function actionIndex()
     {
-		
         $dataProvider = new ActiveDataProvider([
             'query' => InvoiceLoadIn::find(),
         ]);
@@ -80,7 +77,6 @@ class InvoiceLoadInController extends Controller
 
 	
 	
-	//=================================
     /**
      * Creates a new InvoiceLoadIn model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -90,8 +86,8 @@ class InvoiceLoadInController extends Controller
     {
         $model = new InvoiceLoadIn();
 		
-		$allUsers = User::find()->orderBy ('id DESC')->all(); //users list for form autocomplete
-		$products = ProductName::find()->all(); 
+		$allUsers  = User::find()->orderBy ('id DESC')->all(); //users list for form autocomplete
+		$products  = ProductName::find()->all(); 
 		$elevators = Elevators::find()->all(); //elevators for form dropdown
 		
 		//$model->invoice_id = Yii::$app->security->generateRandomString(5). "-" . time(); //invoiceID to form 
@@ -101,13 +97,12 @@ class InvoiceLoadInController extends Controller
 			$res = $model->checkBalance();
 			
 			if($res){
-			  //adds and updates with new weigth if product was already on balance		
-			  $model->balanceAdd($res);
+			    //adds and updates with new weigth if product was already on balance		
+			    $model->balanceAdd($res);
 		    } else {
-			  //saves new row with product and weigth if product was was not on balance	yet	
-			  $model->addNewProduct();
+			    //saves new row with product and weigth if product was was not on balance	yet	
+			    $model->addNewProduct();
 		    }
-			
 			
 		    $model->sendMessage(); //notify the user
 			
@@ -117,9 +112,9 @@ class InvoiceLoadInController extends Controller
         }
 
         return $this->render('create', [
-            'model' => $model,
-			'allUsers' => $allUsers,
-			'products' => $products,
+            'model'     => $model,
+			'allUsers'  => $allUsers,
+			'products'  => $products,
 			'elevators' => $elevators
         ]);
     }

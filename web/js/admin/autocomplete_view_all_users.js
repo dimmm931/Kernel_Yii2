@@ -1,18 +1,14 @@
 (function(){ //START IIFE (Immediately Invoked Function Expression)
 $(document).ready(function(){
    
-   
     //to make this script works only on SiteController/ViewOne
 	if (typeof usersX2 === 'undefined') { 
 	    //alert ('false');
 		return false;
 	}
 	
-	
-	
 	//array which will contain all products for autocomplete
 	var arrayAutocomplete = [];
-	
 	
 	//Loop through passed php object, object is echoed in JSON in Controller Product/action Shop
 	for (var key in usersX2) {
@@ -23,17 +19,13 @@ $(document).ready(function(){
    console.log(arrayAutocomplete);
 	
     //Autocomplete itself
-    $( function() {	
-	
-		
-		
+    $( function() {		
 		
 		//Autocomplete wrap hints in URL <a href>
 		$("#searchProduct").autocomplete({
-           minLength: 1,
-           source: arrayAutocomplete, //array for autocomplete
-		   
-		   select: function (event, ui) {
+            minLength: 1,
+            source: arrayAutocomplete, //array for autocomplete
+		    select: function (event, ui) {
                 //displaySelectedCategoryLabel(event, ui);
             },
         }).data("ui-autocomplete")._renderItem = function (a, b) {
@@ -43,18 +35,12 @@ $(document).ready(function(){
             .appendTo(a);
         };
 		
-		
 	 });
 
-
-
-   //clear the Search field
-   $(document).on("click", '.clear', function() { 
-       $("#searchProduct").val('');   
-   });  
-		
-		
-	   
+    //clear the Search field
+    $(document).on("click", '.clear', function() { 
+        $("#searchProduct").val('');   
+    });  
+			   
 });
-// end ready	
 }()); //END IIFE (Immediately Invoked Function Expression)

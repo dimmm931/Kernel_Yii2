@@ -11,8 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="all" class="site-about animate-bottom">
     <h1><?= Html::encode($this->title) ?></h1>
-	
-	
 	<p>Подати запит до адміністратора про намір відвантажити наявне зерно з елеватора</p>
 	
 	<!------ FLASH Message ----->
@@ -23,9 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php endif;?>
    <!------ END FLASH  --------->
-   
-   
-   
+      
    	<!--- Image -->
 	 <div class="row"> 
        <center>
@@ -40,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
 	   </center>
 	</div></br>
    
-   <?php
-   //generate invoice number
-   $invoice = Yii::$app->security->generateRandomString(5). "-" . time(); 
-   ?>
+    <?php
+    //generate invoice number
+    $invoice = Yii::$app->security->generateRandomString(5). "-" . time(); 
+    ?>
   
 	<h3>
         <span class="p-5 bg-success">

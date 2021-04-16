@@ -16,8 +16,6 @@ $this->title = 'Моя історія';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div id="all" class="site-about animate-bottom">
-
-    
 	
     <h1><?= Html::encode($this->title) ?></h1>
 	
@@ -98,25 +96,27 @@ $this->params['breadcrumbs'][] = $this->title;
 		    $i++;
 		    echo "<div class='col-sm-12 col-xs-12 list-group-item'>";
            
-		       //if it is from {invoice_load_out DB}
-		       if ($value instanceof InvoiceLoadOut) {     
-			      $text = \app\componentsX\views\user\TransactionHistory::displayInvoiceLoadOut($i, $value);
+		    //if it is from {invoice_load_out DB}
+		    if ($value instanceof InvoiceLoadOut) { 
+			    $inv = \app\componentsX\views\user\TransactionHistory::displayInvoiceLoadOut($i, $value);
 				
-			   //if it is from {transfer_rights DB}	
-               } else if ($value instanceof TransferRights) { 
-				   $text = \app\componentsX\views\user\TransactionHistory::displayTransferRights($i, $value);
-					    
-								
-		       //if it is from {invoice_load_in DB}	
-		       } else if ($value instanceof InvoiceLoadIn) {
-			       $text = \app\componentsX\views\user\TransactionHistory::displayInvoiceLoadIn($i, $value);
-		       }
-		
-		      echo "</div><hr>";
-		      ?>
+			//if it is from {transfer_rights DB}	
+            } else if ($value instanceof TransferRights) { 
+				$inv  = \app\componentsX\views\user\TransactionHistory::displayTransferRights($i, $value);
+				    
+		    //if it is from {invoice_load_in DB}	
+		    } else if ($value instanceof InvoiceLoadIn) {
+			    $inv  = \app\componentsX\views\user\TransactionHistory::displayInvoiceLoadIn($i, $value);
+		    }
+		    $invText    = $inv['invoiceText']; //text for invoice
+            $modaltext  = $inv['modalText'];   //text for modal
+            
+            echo $invText; //displays one of 3 invoices
+		    echo "</div><hr>";
+		    ?>
 			  
-		      <!--------- Hidden Modal ---------->
-              <div class="modal fade" id="myModalHistory<?php echo $i;?>" role="dialog">
+		    <!--------- Hidden Modal ---------->
+            <div class="modal fade" id="myModalHistory<?php echo $i;?>" role="dialog">
                   <div class="modal-dialog modal-lg">
                      <div class="modal-content">
                          <div class="modal-header">
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					   
                         <div class="modal-body">
                             <p><b>Message</b></p>
-						    <?=$text;?>    
+						    <?=$modaltext;?>    
                         </div>
 					  
                         <div class="modal-footer">

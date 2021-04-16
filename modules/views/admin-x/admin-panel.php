@@ -1,4 +1,3 @@
-
 <?php
 
 /* @var $this yii\web\View */
@@ -6,10 +5,10 @@
 /* @var $model app\models\LoginForm */
 
 use yii\helpers\Html;
-use yii\bootstrap\Collapse;  //  Collapse (hide/show)
+use yii\bootstrap\Collapse;  //Collapsed (hide/show)
 
- use app\assets\admin\AdminFrontPageAsset;   // use your custom asset
- AdminFrontPageAsset::register($this); 
+use app\assets\admin\AdminFrontPageAsset;   //use your custom asset
+AdminFrontPageAsset::register($this); 
 
 $this->title = 'Admin Panel';
 $this->params['breadcrumbs'][] = $this->title;
@@ -18,24 +17,27 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 $urlZ = Yii::$app->request->baseUrl; // . "/admin/admin-x/count-register-requests"; //  Yii::$app->request->baseUrl; // . "/bot/ajax-reply"; 
 use yii\helpers\Json; 
-		 $this->registerJs(
-            "var url = '" . $urlZ . "';",  
-             yii\web\View::POS_HEAD, 
-            'admin-events-script'
-     );
+$this->registerJs(
+    "var url = '" . $urlZ . "';",  
+    yii\web\View::POS_HEAD, 
+    'admin-events-script'
+);
 ?>
 
 <div id="all" class="admin-default-index animate-bottom">
     <h1><?= Html::encode($this->title) ?></h1>
-	<p><i class="fa fa-drivers-license-o" style="font-size:14px"></i> Hello, <?=Yii::$app->user->identity->username;?> </p>
+	<p>
+      <i class="fa fa-drivers-license-o" style="font-size:14px"></i> 
+      Hello, <?=Yii::$app->user->identity->username;?> 
+    </p>
+    
 	<?php 
-	    if(Yii::$app->user->can('adminX')){ echo "<b>You have admin rights.</b>";}
-	 ?>
+	if (Yii::$app->user->can('adminX')) { 
+        echo "<b>You have admin rights.</b>";
+    }
+	?>
 	
 	
-   
-  
-   
    
    <!------ FLASH Message to show if the account not yet activated by the admin ----->
    <?php if( Yii::$app->session->hasFlash('failX') ): ?>
@@ -66,14 +68,18 @@ use yii\helpers\Json;
 
     
 	<!-- Displays all Elevators' balance of all users -->
-	<?php echo \app\componentsX\views\admin\AdminPersonalAccount::showAllElevetorStatistics($userCount, $products, $balance); ?>
+	<?php 
+    $elevatorStats = \app\componentsX\views\admin\AdminPersonalAccount::showAllElevetorStatistics($userCount, $products, $balance); 
+	echo $elevatorStats;
+	?>
 	
-	
-	
-	 <br>
+	<br>
 
-  <!-- Collapse widget with user info -->
-  <?php echo \app\componentsX\views\admin\AdminPersonalAccount::showCollapsedUserInfo();?>
+    <!-- Collapse widget with user info -->
+    <?php 
+    $admInfo = \app\componentsX\views\admin\AdminPersonalAccount::showCollapsedUserInfo();
+    echo $admInfo;
+    ?>
 
 
   

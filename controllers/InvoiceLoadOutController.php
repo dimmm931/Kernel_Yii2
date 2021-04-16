@@ -56,14 +56,12 @@ class InvoiceLoadOutController extends Controller
 
     /**
      * Displays load-out request form
-     *
-     * @return string
+     * @return Response|string
+     * 
      */
     public function actionLoadOut()
     {
         $model = new InvoiceLoadOut();
-		
-		//form fields
 		//$model->invoice_unique_id = Yii::$app->security->generateRandomString(5). "-" . time(); //invoiceID to form 
 		$model->user_date_unix = time();
 		
@@ -72,18 +70,7 @@ class InvoiceLoadOutController extends Controller
 		$b = new Balance();
 		
 	    if ($model->load(Yii::$app->request->post())) {
-			if ( $model->save()){
-			    /*$res = $model->checkBalance();
-			    if($res){
-			    //adds and updates with new weigth		
-			     $model->balanceAdd($res);
-		       } else {
-			      //saves new row with product and weigth	
-			      $model->addNewProduct();
-		       }
-		       $model->sendMessage(); //notify the user
-			   */
-			
+			if ($model->save()){
 			    $model->deductProduct();
 			    $model->sendMessage();
 				$model->attributes = '';
@@ -98,7 +85,7 @@ class InvoiceLoadOutController extends Controller
 		      'model' => $model, 
 			  'products' => $products,
 			  'b' => $b
-	     ]);
+	    ]);
     }
 
 }

@@ -9,7 +9,6 @@ $(document).ready(function(){
 	}
 	
 	
-	
 	//array which will contain all products for autocomplete
 	var arrayAutocomplete = [];
 	
@@ -19,37 +18,28 @@ $(document).ready(function(){
 		arrayAutocomplete.push(  { label: usersX[key]['email'] + "  => " +  usersX[key]['company_name'], value: usersX[key]['id'] }  ); //gets name of every user and form in this format to get and lable and value(Name & ID)
 
 	}
-	
 
 	
     //Autocomplete itself
     $( function() {	
 	
-	     //fix function for autocomplete (u type email in <input id="userName">, get autocomplete hints and onSelect puts email value (i.e user ID to) to hidden <input id="userID">)
-	     function displaySelectedCategoryLabel(event, ui) {
+	    //fix function for autocomplete (u type email in <input id="userName">, get autocomplete hints and onSelect puts email value (i.e user ID to) to hidden <input id="userID">)
+	    function displaySelectedCategoryLabel(event, ui) {
             $("#userName").val(ui.item.label);
             $("#userID").val(ui.item.value); //hidden <input id="userID"> to contain user (get from autocomplete array)
             event.preventDefault();
         };
 		
-		
 	
 		//Autocomplete 
 		$("#userName").autocomplete({
-           minLength: 1,
-           source: arrayAutocomplete, //array for autocomplete
-		   
-		   select: function (event, ui) {
+            minLength: 1,
+            source: arrayAutocomplete, //array for autocomplete
+		    select: function (event, ui) {
                 displaySelectedCategoryLabel(event, ui);
             },
         });
 	
-		
    } );
-   
-   
-   
-   
-
 
 });

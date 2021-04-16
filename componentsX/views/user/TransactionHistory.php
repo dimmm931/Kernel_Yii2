@@ -8,12 +8,14 @@ class TransactionHistory
 {
 	
     /**
-     * Invoices from invoice_load_out DB
-     * @return string $text
+     * Invoices from invoice_load_out DB, used in foreach
+     * @param int $i
+     * @param object $value (foreach $key => $value)
+     * @return array
      */
     public static function displayInvoiceLoadOut($i, $value) 
     {
-		echo "<div class='bg-danger cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
+		$invoiceText = "<div class='bg-danger cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
 			    "<i class='fa fa-mail-reply' style='font-size:18px'></i><br>" . 
 			    "<b>" . date("d-m-Y H:i:s", $value->user_date_unix) . "</b><br>".  //unix hen user make request
        		    " Списано. Відвантажено з елеватора. " . //Yii::$app->formatter->asDate($value->date_to_load_out, 'dd-MM-yyyy H:i:s ') . "<br>" .
@@ -28,20 +30,20 @@ class TransactionHistory
 				
 				
         //text for modal				
-	    $text =  '<div class="row list-group-item">
+	    $modalText =  '<div class="row list-group-item">
 			        <div class="col-sm-1 col-xs-3">Накладна:</div>
 				      <div class="col-sm-4 col-xs-9">' . $value['invoice_unique_id'] . '</div> 
 				  </div>
 				  <div class="row list-group-item">
 				    <div class="col-sm-1 col-xs-3">Дата:</div> 
-				    <div class="col-sm-4 col-xs-9">' . date("d-m-Y H:i:s", $value->date_to_load_out) . '</div> 
+				    <div class="col-sm-4 col-xs-9">' . date("d-m-Y H:i:s", $value->user_date_unix) . '</div> 
 				  </div>
 				  <div class="row list-group-item">
 				    <div class="col-sm-1 col-xs-3">Списано :</div>
 					<div class="col-sm-4 col-xs-9"> - ' . $value['product_wieght'] .  " кг " . $value->products->pr_name_name . '</div> 
 				  </div>';
 						  
-		return $text;		
+		return array('invoiceText' => $invoiceText , 'modalText' => $modalText);		
 	  
 	}
 	 
@@ -50,15 +52,17 @@ class TransactionHistory
 	 
 	/**
      * Invoices from TransferRights DB
-     * @return string $text
+     * @param int $i
+     * @param object $value (foreach $key => $value)
+     * @return array
      */
      public static function displayTransferRights($i, $value) 
      {
 		//if view the Sender of rightsTransfer
-        if ($value->from_user_id == Yii::$app->user->identity->id){ //display 'Ви переказали', i.e view the Sender
-            echo "<div class='bg-danger cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
+        if ($value->from_user_id == Yii::$app->user->identity->id) { //display 'Ви переказали', i.e view the Sender
+            $invoiceText = "<div class='bg-danger cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
 				 "<i class='fa fa-mail-reply' style='font-size:18px'></i><br>" . 
-				  "<b>" . date("d-m-Y H:i", $value->unix_time) . "</b><br>".  //unix hen user make request
+				  "<b>" . date("d-m-Y H:i", $value->unix_time) . "</b><br>".  //unix when user make request
        			  " Списано/Переоформлено на <b> " . $value->users->email . "</b>" .
 				  " Накладна:<b> " .$value['invoice_id']  . "</b> " . 
 				  " Статус: OK" .
@@ -68,9 +72,9 @@ class TransactionHistory
 					
         //if view the Reciever of rightsTransfer					
 	    } else if ($value->to_user_id == Yii::$app->user->identity->id){ //display 'Вам переказали', i.e view the Reciever
-            echo "<div class='bg-success cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
+            $invoiceText = "<div class='bg-success cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" .   
 				 "<i class='fa fa-mail-reply' style='font-size:18px'></i><br>" . 
-				 "<b>" . date("d-m-Y H:i", $value->unix_time) . "</b><br>".  //unix hen user make request
+				 "<b>" . date("d-m-Y H:i", $value->unix_time) . "</b><br>".  //unix when user make request
        		     " На Вас було переоформлено товар від на <b> " . $value->users2->email . "</b>" .
 			     " Накладна:<b> " .$value['invoice_id']  . "</b> " . 
 				 " Статус: OK" .
@@ -81,7 +85,7 @@ class TransactionHistory
 				
 				
         //text for modal-> NOT FINISHED		
-	    $text =  '<div class="row list-group-item">
+	    $modalText = '<div class="row list-group-item">
 				  <div class="col-sm-1 col-xs-3">Накладна:</div>
 				  <div class="col-sm-4 col-xs-9">' . $value['invoice_id'] . '</div> 
 				  </div>
@@ -94,8 +98,8 @@ class TransactionHistory
 				  <div class="col-sm-4 col-xs-9"> - ' . $value['product_weight'] .  " кг " . $value->products->pr_name_name . '</div> 
 				  </div>';
                   
-		return $text;
-			   
+		return array('invoiceText' => $invoiceText , 'modalText' => $modalText);		
+		   
 	}
 	 
 	 
@@ -103,11 +107,13 @@ class TransactionHistory
 	
 	/**
      * Invoices from InvoiceLoadIn DB
-     * @return string $text
+     * @param int $i
+     * @param object $value (foreach $key => $value)
+     * @return array
      */
     public static function displayInvoiceLoadIn($i, $value) 
     {
-		echo "<div class='bg-success cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" . 
+		$invoiceText = "<div class='bg-success cursorX' data-toggle='modal' data-target='#myModalHistory" . $i ."'>" . 
 		     "<i class='fa fa-mail-forward' style='font-size:18px'></i><br>" .
 	         "<b>" . date("d-m-Y H:i:s", $value->unix) . "</b><br>".
         	 "Додано. Завантажено на елеватор. " . 
@@ -119,7 +125,7 @@ class TransactionHistory
 				
 				
         //text for modal				
-	    $text =  '<div class="row list-group-item">
+	    $modalText =  '<div class="row list-group-item">
 				  <div class="col-sm-1 col-xs-3">Накладна:</div>
 				  <div class="col-sm-4 col-xs-9">' . $value['invoice_id'] . '</div> 
 				  </div>
@@ -131,11 +137,9 @@ class TransactionHistory
 				  <div class="col-sm-1 col-xs-3">Додано :</div>
 				  <div class="col-sm-4 col-xs-9"> + ' . $value['product_wight'] .  " кг " . $value->products->pr_name_name . '</div> 
 				  </div>';
-		return $text;
-	}
+	
+        return array('invoiceText' => $invoiceText , 'modalText' => $modalText);		
 
-	 
-	 
+	}
 	 
 }
-

@@ -14,28 +14,23 @@ $(document).ready(function(){
 	
 	//droping Mint.me banner
 	setTimeout(function(){ 
-	   $('div').each(function() {
-          if ($(this).find('img').length) { //https://a5.cba.pl/mintme.png
-		     var a_href = $(this).find('div a').attr('href');
-			 //alert(a_href);  //show  https://www.mintme.com/
+	    $('div').each(function() {
+            if ($(this).find('img').length) { //https://a5.cba.pl/mintme.png
+		        var a_href = $(this).find('div a').attr('href');
+			    //alert(a_href);  //show  https://www.mintme.com/
 			 
-		     if( a_href == "https://www.mintme.com/"){  //https://www.mintme.com/   https://a5.cba.pl/mintme.png
-				 //alert("f y");
-				 $(this).find('div').css('display', 'none');
-			 }
+		        if( a_href == "https://www.mintme.com/"){  //https://www.mintme.com/   https://a5.cba.pl/mintme.png
+				    //alert("f y");
+				    $(this).find('div').css('display', 'none');
+			    }
 		     
-             // there is an image in this div, do something...
-          }
-      });
+                // there is an image in this div, do something...
+            }
+        });
     }, 2000);
 	// **                                                                                  **
     // **************************************************************************************
     // **************************************************************************************
-	
-	
-	
-	
-	
 
 });
 // end ready	

@@ -57,21 +57,18 @@ class TransferRightsController extends Controller
 	
 	
 	
-	
-    //====================================================
     /**
      * Application to transfer your product right to other client
-     *
+     * @return Response|string
      * 
      */
     public function actionTransferRight()
     {
-		
 		$model = new TransferRights();
 		$allUsers = User::find()->orderBy ('id DESC')->all(); //users list for form autocomplete
 		
 		if ($model->load(Yii::$app->request->post())) {
-			if ( $model->save()){
+			if ($model->save()){
 				
 				$res1 = $model->checkBalance(Yii::$app->user->identity->id); //this current User balance
 				$res2 = $model->checkBalance($model->to_user_id); //2nd User balance, id from form
@@ -87,8 +84,6 @@ class TransferRightsController extends Controller
 				
 			    //-- deduct from this current User1
 			    $model->deductProduct($res1);  
-				
-				
 				$model->sendMessageUser1(); //send the message to current user
 				$model->sendMessageUser2(); //send the message to User who obtained new product
 				
@@ -100,14 +95,10 @@ class TransferRightsController extends Controller
 		   }
 		}
 		
-		
 		return $this->render('trans-right-index', [
 		      'model' => $model,
 			  'allUsers' => $allUsers,
 	    ]);
     }
-
-	
-
 
 }

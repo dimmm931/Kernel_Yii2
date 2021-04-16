@@ -56,31 +56,21 @@ class PersonalAccountController extends Controller
         ];
     }
 	
-    //====================================================
     /**
      * Displays personal account homepage.
-     *
      * @return string
+     * 
      */
     public function actionIndex()
     {
         $balance = Balance::find()->orderBy ('balance_id DESC') -> where(['balance_user_id' => Yii::$app->user->identity->id ])->all();
-		
-        
 		return $this->render('index', [
 		      'balance' => $balance, 
 	    ]);
     }
 
 	
-    
-	
-	
-	
-	
-	
-	 //===================================
-	 /**
+	/**
      * Ajax Check and count (via ajax request) if there are any inbox messages (with m_status_read' => 0) 
      * @return json
      */
@@ -90,16 +80,11 @@ class PersonalAccountController extends Controller
 		$count = $found->count();
 		
 		//RETURN JSON DATA
-         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
-          return [
-             'result_status' => "OK",
-			 'count' => $count ,  
-          ]; 
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
+        return [
+            'result_status' => "OK",
+			'count' => $count ,  
+        ]; 
 	}
-	
-	
-	
-	
-	
 
 }

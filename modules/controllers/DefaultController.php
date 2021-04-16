@@ -42,8 +42,6 @@ class DefaultController extends Controller
     }
 	
 	
-	
-	
 	/**
      * {@inheritdoc}
      */
@@ -60,10 +58,6 @@ class DefaultController extends Controller
         ];
     }
 	
-	
-	
-	
-	  
 	
 	
     /**
@@ -88,9 +82,5 @@ class DefaultController extends Controller
 		      'model' => $model, 
 	    ]);
     }
-	
-	
-
-	
 	
 }

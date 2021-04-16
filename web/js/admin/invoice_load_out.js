@@ -4,23 +4,18 @@ window.invoiceIDX;
 (function(){ //START IIFE (Immediately Invoked Function Expression)
 $(document).ready(function(){
 	
- //uses ajax from js/admin/datepicker.js
-
-    //====================
+    //uses ajax from js/admin/datepicker.js
     //click on invoice in admin/views/load-out-index.php
     $(document).on("click", '.invoice-one', function() {      //for newly generated 
-	
-	   window.invoiceIDX = this.getAttribute("data-invoic-id"); 
-	   runAjaxToGetInvoice(this);
-	   
+	    window.invoiceIDX = this.getAttribute("data-invoic-id"); 
+	    runAjaxToGetInvoice(this); 
 	});
    
 	   
     //=================
     function runAjaxToGetInvoice(context){
 		//alert(context.getAttribute("data-invoic-id"));
-		var ajax_url = urlX + "/admin/invoice-load-out/ajax_get_invoice";
-		//alert(ajax_url);
+        var ajax_url = urlX + "/admin/invoice-load-out/ajax_get_invoice";
 		$(".loader").show(80); //hide the loader
 		
 		// send  data  to  PHP handler  ************ 
@@ -41,7 +36,6 @@ $(document).ready(function(){
 				buildAnswer(data);
 				scrollResults("#invoiceSelected");
 				
-				
             },  //end success
 			error: function (error) {
 				$("#invoiceSelected").stop().fadeOut("slow",function(){ $(this).html("Failed")}).fadeIn(2000);
@@ -49,7 +43,6 @@ $(document).ready(function(){
 				//console.log(data);
             }	
         });
-		
 		
 	}
 
@@ -90,15 +83,6 @@ $(document).ready(function(){
 		  $("#invoiceSelected").stop().fadeOut("slow",function(){ $(this).html(textX)}).fadeIn(2000);	
 
 	}
-
-
-	
-
-
-
-
-
-
 	
 	   
 });
@@ -110,20 +94,19 @@ $(document).ready(function(){
 
 
 
-   //Moved outside  IIFE to be visible in other scripts, i.e js/datepicker.js -----------------------------------------
-
+    //Moved outside  IIFE to be visible in other scripts, i.e js/datepicker.js -----------------------------------------
     // Advanced Scroll the page to results  #resultFinal
 	// **************************************************************************************
     // **************************************************************************************
     //                                                                                     ** 
-	function scrollResults(divName, parent)  //arg(DivID, levels to go up from DivID)  //scrollResults("#roomNumber", ".parent().");
-	{   //if 2nd arg is not provided while calling the function with one arg
+	function scrollResults(divName, parent) {  //arg(DivID, levels to go up from DivID)  //scrollResults("#roomNumber", ".parent().");
+	    //if 2nd arg is not provided while calling the function with one arg
 		if (typeof(parent)==='undefined') {
 		
             $('html, body').animate({
                 scrollTop: $(divName).offset().top
                 //scrollTop: $('.your-class').offset().top
-             }, 'slow'); 
+            }, 'slow'); 
 		     // END Scroll the page to results
 		} else {
 			//if 2nd argument is provided
@@ -148,8 +131,7 @@ $(document).ready(function(){
     //                                                                                     ** 
 	
 	
-	function scroll_toTop() 
-	{
+	function scroll_toTop(){
 	    $("html, body").animate({ scrollTop: 0 }, "slow");	
 	}
 	// **                                                                                  **

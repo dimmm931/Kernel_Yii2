@@ -1,5 +1,4 @@
 <?php
-
 namespace app\modules\controllers;
 
 use yii\web\Controller;
@@ -9,7 +8,6 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\Balance;
 use app\modules\models\ViewAllUsers;
-
 
 /**
  * View all users
@@ -45,8 +43,6 @@ class ViewAllUsersController extends Controller
     }
 	
 	
-	
-	
 	/**
      * {@inheritdoc}
      */
@@ -65,48 +61,42 @@ class ViewAllUsersController extends Controller
 	
 	/**
      * any action in this controller is available with users with adminX RBAC
+     *
      */
-	public function beforeAction($action){
+	public function beforeAction($action)
+    {
 	    if(!Yii::$app->user->can('adminX')){
 		    throw new \yii\web\NotFoundHttpException("You have no admin rights.");
 	    }
         return parent::beforeAction($action); 
-	  }
-	  
-	
-	
-	
+	}
 	
 
-	 /**
+	/**
      * Renders the main viewUsers page
-     * @
+     * @return string
+     *
      */
     public function actionIndex()
     {
-
 	    $allUsers = User::find()->orderBy ('id DESC')->all(); //users list for form autocomplete
 		
         return $this->render('view-all', [
             'allUsers' => $allUsers,
-
         ]);
     }
 	
 	
 	
-	
-	 /**
+	/**
      * Renders single User page view with info, balance, history
-     * 
+     * @return string
+     *
      */
     public function actionSingleUserView($user_id)
     {
-
 	    $oneUser = User::find()->where(['id' => $user_id])->one();
-		
 		$balance = Balance::find()->orderBy ('balance_id DESC') -> where(['balance_user_id' => $user_id ])->all();
-		
 		
 		$model = new ViewAllUsers();
 		//find transaction for last user
@@ -118,20 +108,11 @@ class ViewAllUsersController extends Controller
 		//sort merged array by unixTime from 3 arrays (InvoiceLoadOut::date_to_load_out/InvoiceLoadIn::unix, TransferRights::unix_time)
 		$query = $model->sortArrayByUnix($queryTemp);
 		 
-		 
-		
         return $this->render('view-one-user', [
-            'oneUser' => $oneUser,
+            'oneUser'  => $oneUser,
 			'balance'  => $balance,
-			'query' => $query,
-
-
+			'query'    => $query,
         ]);
-    }
-	
-	
-	
-	
-	
+    }	
 	
 }

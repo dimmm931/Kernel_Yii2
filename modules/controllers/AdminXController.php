@@ -83,35 +83,32 @@ class AdminXController extends Controller
 	  
 	
 	
-	
-	
-	 //===================================
-	 /**
+	/**
      * Renders the admin personal account/main page
      * @return string
+     *
      */
     public function actionAdminPanel()
     {
 
 	    $userCount = User::find();
-		$products = ProductName::find()->all();
-		$balance = Balance::find()->all();
+		$products  = ProductName::find()->all();
+		$balance   = Balance::find()->all();
 		
         return $this->render('admin-panel', [
             'userCount' => $userCount,
-			'products' =>  $products ,
-			'balance' => $balance
+			'products'  => $products ,
+			'balance'   => $balance
         ]);
     }
 	
 	
 	
 	
-	
-	 //===================================
-	 /**
+	/**
      * Ajax Check and count (via ajax request) if there are any users' registration requests (with status = 10) 
      * @return json
+     *
      */
     public function actionCountRegisterRequests()
     {
@@ -119,20 +116,20 @@ class AdminXController extends Controller
 		$count = $found->count();
 		
 		//RETURN JSON DATA
-         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
-          return [
-             'result_status' => "OK",
-			 'count' => $count ,  
-          ]; 
-        
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
+        return [
+            'result_status' => "OK",
+			'count'         => $count ,  
+        ];    
     }
 	
 	
-	
-		 //===================================
-	 /**
+
+	/**
      * Ajax Check and count (via ajax request) if there are any users' load-out requests (with where(['confirmed_by_admin' => self::STATUS_PENDING])) STATUS_PENDING == 0
      * @return json
+     *
+     *
      */
     public function actionCountLoadOutRequests()
     {
@@ -141,25 +138,24 @@ class AdminXController extends Controller
 		
 		//RETURN JSON DATA
          \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
-          return [
-             'result_status' => "OK",
-			 'count' => $count ,  
-          ]; 
+         return [
+            'result_status' => "OK",
+			'count'         => $count ,  
+        ]; 
         
     }
 	
 	
 	
 	
-	 //===================================
-	 /**
+	 
+	/**
      * Renders the page to view (approve/reject) users' registration requests
-     * @return string
+     * @return string|Response
+     *
      */
     public function actionUsersRegistrationRequests()
     {
-		
-		
 		$model = new RegisterRequest_InputModel();
 		
 		if ($model->load(\Yii::$app->request->post()) ) {
@@ -175,14 +171,9 @@ class AdminXController extends Controller
 		$requests = User::find()->where(['status' => 9])->all();
 		
         return $this->render('users-registration-requests', [
-		      'requests' => $requests, 
-			  'model' => $model, 
+		    'requests' => $requests, 
+			'model'    => $model, 
 	    ]);
     }
-	
-	
-	
-	
-	
 	
 }

@@ -1,7 +1,5 @@
 <?php
-
 /* @var $this yii\web\View */
-
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
@@ -9,12 +7,8 @@ use yii\widgets\LinkPager;
 use app\assets\user\MessagesAsset;
 MessagesAsset::register($this);
 
-
 $this->title = 'Мої повідомлення';
 $this->params['breadcrumbs'][] = $this->title;
-
-
-
 
 //pass URL for JS ajax
 $urlZ = Yii::$app->request->baseUrl; 
@@ -53,7 +47,7 @@ $this->registerJs(
     
 	
 	<?php
-	$messages = $modelPageLinker;
+	$messages = $messagesCount; //$modelPageLinker;
 	
 	if(empty($messages)){
 		echo '<div class="col-sm-8 col-xs-12 text-danger"> No messages yet</div>';
@@ -79,14 +73,13 @@ $this->registerJs(
 				   '<div class="col-sm-4 col-xs-4">' . $m->m_time .      '</div>' .
 				   '<div class="col-sm-1 col-xs-1">' . ($m->m_status_read == '0' ? '<i class="fa fa fa-envelope changeonclick" style="font-size:20px"></i> ':' <i class="fa fa-envelope-open-o" style="font-size:20px"></i>') .  '</div>' .  	
 				   '<div class="col-sm-5 col-xs-4">'  . $messModel->crop($m->m_text, 27) .   '</div>' .   
-   
 				 '</div>';
 		?>
 
 
 		
 		 <!--------- Hidden Modal ---------->
-           <div class="modal fade" id="myModal<?php echo $i;?>" role="dialog">
+         <div class="modal fade" id="myModal<?php echo $i;?>" role="dialog">
                <div class="modal-dialog modal-lg">
                    <div class="modal-content">
                        <div class="modal-header">
@@ -123,9 +116,10 @@ $this->registerJs(
           <!------------ End Modal ---------------> 
 		  
 		  
-       <?php		
+        <?php		
 				 
 		}
+        
 	}
 	
 	

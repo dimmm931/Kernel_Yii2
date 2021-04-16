@@ -1,13 +1,13 @@
 ## Booking application on Yii2
 
-- <p>A Yii2 application for elevator facility users with personal account(to store wheat, corn, rice crops, buckwheat, oats)</p>
+- <p>A Yii2 application for elevator facility users with personal accounts (to store wheat, corn, rice crops, buckwheat, oats). Separate admin module.</p>
 - <p>App works on SQL DB, to run the application on <b>http://localhost</b>, copy the repository code and run <b>composer install</b> to load all dependencies. </p>
-- <p>Edit you database name at <b>/config/db.php</b> </p>
+- <p>Edit you database name at <b>/config/db.php</b>. </p>
 - <p>Then use <b>php yii migrate</b> to migrate databases</p>
-- <p>After use command <b>php yii migrate --migrationPath=@yii/rbac/migrations/</b> to migrate RBAC tables </p>
-- <p>When the migration is completed, run the seeding command <b>php yii seed</b> to seed the necessary data (products, elevators list) and create a user with admin rights, after you may login using login: <b>test</b>, password: <b>testtest</b> </p>
-- <p>If for some reason your migration/seeding fails, please use SQL dump to import DB tables via PpMyAdmin</p>
-- <p> To test on localhost, apart from above you must have PHP installed and  Web server running on your machine </p>
+- <p>After use command <b>php yii migrate --migrationPath=@yii/rbac/migrations/</b> to migrate RBAC tables. </p>
+- <p>When the migration is completed, run the seeding command <b>php yii seed</b> to seed the necessary data (products, elevators list) and create a user with admin rights, after you may login using login: <b>test</b>, password: <b>testtest</b>. </p>
+- <p>If for some reason your migration/seeding fails, please use SQL dump to import DB tables via PpMyAdmin.</p>
+- <p> To test on localhost, apart from above you must have PHP installed and  Web server running on your machine .</p>
 
 ## Brief overview of the application
 

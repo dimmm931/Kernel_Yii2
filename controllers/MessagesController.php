@@ -55,12 +55,9 @@ class MessagesController extends Controller
     }
 	
 	
-	
-	
-    //====================================================
     /**
      * Displays user's messages.
-     *
+     * @return string
      * 
      */
     public function actionShowMessages()
@@ -96,10 +93,9 @@ class MessagesController extends Controller
 	
 
 	
-	//====================================================
     /**
      * Ajax. Change clicked message m_status_read as read, i.e 1
-     *
+     * @return json
      * 
      */
     public function actionAjaxUpdateReadStatus()
@@ -109,13 +105,11 @@ class MessagesController extends Controller
 		$messages->save(false);
 		
 		//RETURN JSON DATA
-         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
-          return [
-             'result_status' => "OK",
-          ]; 
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;  
+        return [
+            'result_status' => "OK",
+        ]; 
 		  
 	}
-
-		
 
 }
