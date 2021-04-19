@@ -26,27 +26,25 @@ class TransactionHistory
 				" Статус: OK" .
 				"<div class='bg-danger'>  - " . $value['product_wieght'] .  " кг " . $value->products->pr_name_name  . " </div>". //-1kg
 				"<div class='bg-danger'>  На балансі " . $value['final_balance'] .  " кг " . $value->products->pr_name_name  . " </div>" . //final balance
-			  "</div>";
+			    "</div>";
 				
 				
         //text for modal				
 	    $modalText =  '<div class="row list-group-item">
-			        <div class="col-sm-1 col-xs-3">Накладна:</div>
-				      <div class="col-sm-4 col-xs-9">' . $value['invoice_unique_id'] . '</div> 
-				  </div>
-				  <div class="row list-group-item">
-				    <div class="col-sm-1 col-xs-3">Дата:</div> 
-				    <div class="col-sm-4 col-xs-9">' . date("d-m-Y H:i:s", $value->user_date_unix) . '</div> 
-				  </div>
-				  <div class="row list-group-item">
-				    <div class="col-sm-1 col-xs-3">Списано :</div>
-					<div class="col-sm-4 col-xs-9"> - ' . $value['product_wieght'] .  " кг " . $value->products->pr_name_name . '</div> 
-				  </div>';
+			            <div class="col-sm-1 col-xs-3">Накладна:</div>
+				        <div class="col-sm-4 col-xs-9">' . $value['invoice_unique_id'] . '</div> 
+				      </div>
+				      <div class="row list-group-item">
+				        <div class="col-sm-1 col-xs-3">Дата:</div> 
+				        <div class="col-sm-4 col-xs-9">' . date("d-m-Y H:i:s", $value->user_date_unix) . '</div> 
+				      </div>
+				      <div class="row list-group-item">
+				        <div class="col-sm-1 col-xs-3">Списано :</div>
+					    <div class="col-sm-4 col-xs-9"> - ' . $value['product_wieght'] .  " кг " . $value->products->pr_name_name . '</div> 
+				      </div>';
 						  
-		return array('invoiceText' => $invoiceText , 'modalText' => $modalText);		
-	  
+		return array('invoiceText' => $invoiceText , 'modalText' => $modalText);		 
 	}
-	 
 	 
 	 
 	 

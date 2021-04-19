@@ -9,34 +9,29 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-signup">
     <h1><?= Html::encode($this->title) ?></h1>
-	
-	
-	 <!---- Image ----> 
-	 <div class="row"> 
-       <center>
-	   <div class="col-sm-2 col-xs-6"> 
-        <?php		
-        $image = '<i class="fa fa-desktop" style="font-size:56px"></i>';	
-        echo "<div class='subfolder border shadowX'>" .
-		     Html::a( $image ."<p></p><br>" , ["#"], $options = ["title" => "Sign in",]) . 
-		     "</div>"; 
-	    ?>
-       </div>
-	   </center>
-	</div></br>
-	
-	
+	<!---- Image ----> 
+	<div class="row"> 
+        <center>
+	        <div class="col-sm-2 col-xs-6"> 
+            <?php		
+            $image = '<i class="fa fa-desktop" style="font-size:56px"></i>';	
+            echo "<div class='subfolder border shadowX'>" .
+		             Html::a( $image ."<p></p><br>" , ["#"], $options = ["title" => "Sign in",]) . 
+		         "</div>"; 
+	        ?>
+            </div>
+	    </center>
+	</div>
+    </br>
 	
 	<!------ FLASH Message ----->
-   <?php if( Yii::$app->session->hasFlash('warnX') ): ?>
+    <?php if( Yii::$app->session->hasFlash('warnX') ): ?>
     <div class="alert alert-danger alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <?php echo Yii::$app->session->getFlash('warnX'); ?>
     </div>
     <?php endif;?>
    <!------ END FLASH  ----->
-   
-	
     
     <div class="row">
         <div class="col-lg-5">

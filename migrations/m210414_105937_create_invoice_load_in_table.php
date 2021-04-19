@@ -27,7 +27,7 @@ class m210414_105937_create_invoice_load_in_table extends Migration
             'truck_weight_bruto'      => $this->integer()->notNull(),
             'product_wight'           => $this->integer()->notNull(),
             'trash_content'           => $this->integer()->notNull(),
-            'humidity'                => $this->integer()->notNull(),
+            'humidity'                => $this->smallInteger()->notNull()
             'final_balance'           => $this->integer()->notNull(),
         ]);
         

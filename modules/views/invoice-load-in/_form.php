@@ -31,58 +31,58 @@ use yii\helpers\ArrayHelper;
 	<?= $form->field($model, 'user_name')->textInput(['id' => 'userName', 'placeholder' => 'Email']); //not involved in form saving, just to get value (Id of user) from autocmplete and set it to {user_kontagent_id} ?>
 	</div>
 	
-	
     <?= $form->field($model, 'user_kontagent_id')->hiddenInput(['id' => 'userID', 'value'=> 'will be hidden field', 'placeholder' => 'User ID'])->label(false); ?> <!-- hiddenInput(['value'=> '', 'id' => 'some_id'])->label(false); -->
     
-	
 	<div class="col-sm-4 col-xs-12">
-	<?= $form->field($model, 'product_nomenklatura_id')->dropDownList(ArrayHelper::map($products, 'pr_name_id', 'pr_name_name'), ['prompt' => 'Оберіть продукт'])->label('Номенклатура'); ?>
+	    <?= $form->field($model, 'product_nomenklatura_id')->dropDownList(ArrayHelper::map($products, 'pr_name_id', 'pr_name_name'), ['prompt' => 'Оберіть продукт'])->label('Номенклатура'); ?>
     </div>
 	
-
     <?= $form->field($model, 'date')->hiddenInput()->label(false); ?>
-
-
     <?= $form->field($model, 'unix')->hiddenInput(['value' => time() ])->label(false); ?>
- 
-	
-
     <?= $form->field($model, 'invoice_id')->hiddenInput(['value' => $invoiceIn, 'maxlength' => true])->label(false); ?>
 
 	<div class="col-sm-12 col-xs-12"></div>
 	<div class="col-sm-4 col-xs-12">
-	<?= $form->field($model, 'elevator_id')->dropDownList(ArrayHelper::map($elevators, 'e_id', 'e_elevator'), ['prompt' => 'Оберіть елеватор'])->label('Елеватор');; ?>
+	   <?= $form->field($model, 'elevator_id')->dropDownList(ArrayHelper::map($elevators, 'e_id', 'e_elevator'), ['prompt' => 'Оберіть елеватор'])->label('Елеватор');; ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'carrier')->textInput(['placeholder'=> 'Перевізник', 'maxlength' => true])->label('Перевізник'); ?>
+       <?= $form->field($model, 'carrier')->textInput(['placeholder'=> 'Перевізник', 'maxlength' => true])->label('Перевізник'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'driver')->textInput(['placeholder' => 'Водій', 'maxlength' => true])->label('Водій'); ?>
+        <?= $form->field($model, 'driver')->textInput(['placeholder' => 'Водій', 'maxlength' => true])->label('Водій'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'truck')->textInput(['placeholder' => 'Авто', 'maxlength' => true])->label('Авто'); ?>
+        <?= $form->field($model, 'truck')->textInput(['placeholder' => 'Авто', 'maxlength' => true])->label('Авто'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'truck_weight_netto')->textInput(['placeholder' => 'Вага авто нетто'])->label('Вага авто нетто'); ?>
+        <?= $form->field($model, 'truck_weight_netto')->textInput(['placeholder' => 'Вага авто нетто'])->label('Вага авто нетто'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'truck_weight_bruto')->textInput(['placeholder' => 'Вага авто брутто'])->label('Вага авто брутто'); ?>
+        <?= $form->field($model, 'truck_weight_bruto')->textInput(['placeholder' => 'Вага авто брутто'])->label('Вага авто брутто'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'product_wight')->textInput(['placeholder' => 'Вага продукту'])->label('Вага продукту кг'); ?>
+        <?= $form->field($model, 'product_wight')->textInput(['placeholder' => 'Вага продукту'])->label('Вага продукту кг'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'trash_content')->textInput(['placeholder' => 'Домішки %'])->label('Домішки %'); ?>
+        <?= $form->field($model, 'trash_content')->textInput(['placeholder' => 'Домішки %'])->label('Домішки %'); ?>
     </div>
+    
 	<div class="col-sm-4 col-xs-12">
-    <?= $form->field($model, 'humidity')->textInput(['placeholder' => 'Волога %'])->label('Волога'); ?>
+        <?= $form->field($model, 'humidity')->textInput(['placeholder' => 'Волога %'])->label('Волога'); ?>
     </div>
 	
 	<div class="col-sm-12 col-xs-12">
         <div class="form-group">
             <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-       </div>
-	 </div>
+        </div>
+	</div>
 
     <?php ActiveForm::end(); ?>
 

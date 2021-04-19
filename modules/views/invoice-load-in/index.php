@@ -10,7 +10,6 @@ $this->title = 'Invoice Load Ins';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invoice-load-in-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

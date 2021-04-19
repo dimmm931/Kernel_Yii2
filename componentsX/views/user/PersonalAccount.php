@@ -47,16 +47,16 @@ class PersonalAccount
                 'label' => 'Натисніть щоб переглянути деталі профілю',
                 'content' => '   
                         <div class="col-lg-offset-1" style="color:;">
-						 <i class="fa fa-address-card-o" style="font-size:36px"></i></br>
-                         <p><b>Ваш аккаунт</b>.</p>
-						 <p>Username: '. Yii::$app->user->identity->username . '</p>
-						 <p>Email: '. Yii::$app->user->identity->email . '</p>
-						 <p>Name: '. Yii::$app->user->identity->first_name . '</p>
-						 <p>Last name: '. Yii::$app->user->identity->last_name . '</p>
-						 <p>Company: '. Yii::$app->user->identity->company_name . '</p>
-						 <p>Phone: '. Yii::$app->user->identity->phone_number . '</p>
-						 <p>Address: '. Yii::$app->user->identity->address . '</p>
-                       </div>',
+						  <i class="fa fa-address-card-o" style="font-size:36px"></i></br>
+                          <p><b>Ваш аккаунт</b>.</p>
+						  <p>Username: '. Yii::$app->user->identity->username . '</p>
+						  <p>Email: '. Yii::$app->user->identity->email . '</p>
+						  <p>Name: '. Yii::$app->user->identity->first_name . '</p>
+						  <p>Last name: '. Yii::$app->user->identity->last_name . '</p>
+						  <p>Company: '. Yii::$app->user->identity->company_name . '</p>
+						  <p>Phone: '. Yii::$app->user->identity->phone_number . '</p>
+						  <p>Address: '. Yii::$app->user->identity->address . '</p>
+                        </div>',
                 // to  be  this  block open  by  default de-comment  the  following 
                 /*'contentOptions' => [
                     'class' => 'in'

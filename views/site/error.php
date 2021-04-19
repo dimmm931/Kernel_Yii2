@@ -15,7 +15,6 @@ $this->title = $message; //$name;
         <?= nl2br("<span class='glyphicon glyphicon-level-up' style='font-size:38px;'></span><br>We are deeply sorry. " .Html::encode($message)) ?>
     </div>
 
-
 	<br><br>
 	
 	<div class="row x">
@@ -33,5 +32,4 @@ $this->title = $message; //$name;
 	    </div>
 	</div><!-- end class="row x" -->
 
-	
 </div>
